@@ -17,6 +17,9 @@ php vendor/bin/homestead make
 vagrant up
 ```
 
+```js
+
+php artisan passport:install
 
 function RUN() {
     var DATA = {
@@ -62,7 +65,7 @@ function RUN() {
 
           })
 }
-
+```
 
 > Remember you'll need to add an entry for `homestead.app` in your `/etc/hosts` file.
 
