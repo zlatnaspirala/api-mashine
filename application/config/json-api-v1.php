@@ -111,7 +111,7 @@ return [
     |
     */
     'encoding' => [
-        'application/vnd.api+json',
+        'application/vnd.api+json' => JSON_PRESERVE_ZERO_FRACTION,
     ],
 
     /*

@@ -7,7 +7,11 @@
 
 require('./bootstrap');
 
+import VueMaterial from 'vue-material'
+
 window.Vue = require('vue');
+
+Vue.use(VueMaterial);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -35,6 +39,37 @@ Vue.component(
     require('./components/passport/PersonalAccessTokens.vue')
 );
 
+/*
 const app = new Vue({
     el: '#app'
+});*/
+
+const AppProps = Vue.extend({
+  props: {
+    AppPropVersion: String
+  }
 });
+  // Register for components
+
+class App extends AppProps {
+
+    constructor() {
+      super()
+      console.log("test App.")
+    }
+
+     mounted () {
+      console.log("test App.")
+    }
+
+}
+
+
+var app = new Vue({
+  // store,
+  render: h => h(App, {
+    props: {
+      AppPropVersion: '0.1.2'
+    }
+  }),
+}).$mount('#app')

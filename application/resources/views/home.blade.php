@@ -5,11 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <passport-personal-access-tokens></passport-personal-access-tokens>
-            test
-            <passport-authorized-clients></passport-authorized-clients>
-            test
+            <!--passport-authorized-clients></passport-authorized-clients-->
             <passport-clients></passport-clients>
-            test
             <my-components></my-components>
         </div>
     </div>

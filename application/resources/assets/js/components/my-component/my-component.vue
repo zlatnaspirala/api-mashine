@@ -1,11 +1,9 @@
 
 <template>
   <div>
-
-
+    test
   </div>
 </template>
-
 
 <script>
     export default {
@@ -14,34 +12,11 @@
          */
         data() {
             return {
-              tokens: ['eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImU1NWFhYzEzODU5YjVlODlmNDQ2ZDI2YTJmZDk3YjlkY2Y5ZDQzYjNlNjE2NTQxNWIwYzUyOWUxYjc2NTFiMTFhZmE4Y2E2OWRiODBkYmM5In0'],
-              "data": {
-    "data": [
-        {
-            "type": "posts",
-            "id": "1",
-            "attributes": {
-                "title": "My First Post",
-                "slug": "my-first-post"
-            },
-            "links": {
-                "self": "/api/posts/1"
-            }
-        },
-        {
-            "type": "posts",
-            "id": "2",
-            "attributes": {
-                "title": "Hello World",
-                "slug": "hello-world"
-            },
-            "links": {
-                "self": "/api/posts/1"
-            }
-        }
-    ]
-}
-          }
+                  "postMashine": {
+
+                  }
+              }
+
         },
 
         /**
@@ -91,25 +66,23 @@
 
             testRun () {
 
-              console.log("test run")
-
               var root = this;
+              setTimeout(function() {
 
-              fetch('/api/v1/posts/', {
-                      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+               console.log("test run")
+
+              fetch('/api/v1/posts/51', {
+                      method: 'GET', // *GET, POST, PUT, DELETE, etc.
                       //mode: 'cors', // no-cors, *cors, same-origin
                       //cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
                       //credentials: 'same-origin', // include, *same-origin, omit
                       headers: {
-                        'Content-Type': 'application/json',
-                         'Accept': 'application/vnd.api+json',
-                        'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1],
-                        // 'Content-Type': 'application/x-www-form-urlencoded',
-                        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImU1NWFhYzEzODU5YjVlODlmNDQ2ZDI2YTJmZDk3YjlkY2Y5ZDQzYjNlNjE2NTQxNWIwYzUyOWUxYjc2NTFiMTFhZmE4Y2E2OWRiODBkYmM5In0.eyJhdWQiOiIxIiwianRpIjoiZTU1YWFjMTM4NTliNWU4OWY0NDZkMjZhMmZkOTdiOWRjZjlkNDNiM2U2MTY1NDE1YjBjNTI5ZTFiNzY1MWIxMWFmYThjYTY5ZGI4MGRiYzkiLCJpYXQiOjE2MDAxODcwNDksIm5iZiI6MTYwMDE4NzA0OSwiZXhwIjoxNjMxNzIzMDQ4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.KIvnWqtB1ULbRe9VGP0CtFyvdqK6COPm50xtjN54WsM9aH6J679w93-ZLbhcoSXQdabtOEdbbUpcAYYCtYjoVLc6YK-WWqg9oz3Zv4Kh9yb2RO5o3iKJZo0FmwFuXBPnXhfR7tPrYdUOY39x3jkPScSO3lZ46piQB9wl3hWNFMccIAlBraxECiqIOZ_hMCL8Kuy_gh5Dzl-HXTtwmHZC9cYxCeiAsSvdDINmXiW9Jm87RHQqm15c1ZdOiNDW3YPgxCsXznWeejY0nijwivpOaw3KWuMWD4vKzXcw8j3EXYhnSREYHUDto5ZJlP_VAs71gpSFRBxt9FQ9QzAx_6-p_5bimxN79pHXic9KYiKPuRwI0sPw4joUtISwfVmbCkFyxmfNm6qj-pfC6YJdpPDrh4oKC1eTA-_iqkTgBQN21A1yQ7mcack52HvaSJV2TIgzM84pNbRFTDloxnRldVhQ9Vep9FDxGw9Wiuc4qChR5FbyFm0rtej2YGruostC2idU80HhVXjNCiSKMuPdfyx52zIbV4wKDAkcHxJCPEpQCspy0OrQVK1Rh53EW-BwViI_GCfIxWUIHzKjqDbUjNwRidc_UzkfP-qz3KltVjLukS5vO510L3UxGXEfsyH3jaE45r-SZNMBTWqN5ZvVSouFzFstuQJhtPUS0zydMXBfCOw'
+                         'Content-Type': '*',
+                         'Accept': 'application/json, text/plain, */*',
+                         'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1],
+                         // 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImMyMzgzN2JkMWZlOTM4YmFlM2E5ODMwZTM2N2Q2ZTM0YWU4NTQyYzQwOGM0ODdiYTNmNjkxNzlhNDc0NTQxMWZlZGM3YmQwZThhZTYwMTg1In0.eyJhdWQiOiIxIiwianRpIjoiYzIzODM3YmQxZmU5MzhiYWUzYTk4MzBlMzY3ZDZlMzRhZTg1NDJjNDA4YzQ4N2JhM2Y2OTE3OWE0NzQ1NDExZmVkYzdiZDBlOGFlNjAxODUiLCJpYXQiOjE2MDAyNzcwODksIm5iZiI6MTYwMDI3NzA4OSwiZXhwIjoxNjMxODEzMDg5LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.Uh7cr3dBsIh5_G2vrNfzjFq5efSdMZ3Hc6hjUobZo6VLTUuA_ihCZjADU6BKD-Ht_T67aJ0Afm94IJeHFy7yCHec8mQaJaQm4qW2Mz88xkEIRvNZR7gXbB86mtonzWJGKiMb9yabejGZDiIEBrF7OKJKmpMslzU0SnCNRUcAEs-GJy4UYNG0S7U_OaUy2hhDBVYBCQd2qKpdjjRmH6BKBmjipj9PtM7pa654-GGKDDJ0j-EJI96740vNcy8seLsrcjZmUT6gix_znVyglta4d8tT4S9bj2VTmBMZ6g6DlWf83NjewhzXDwiXBlNAAx39RcYxhK6BK7XXzLgYddKC6HDYsJ1syt-c5hLK4oCsPmKc71FBnQ6x70G8J3L9yn3lzK80q4Y6QBl5pXAZIYtPtdYtak9e3kwGMIg5w8zVz3JdqF9-tbLkWIOags6KTz4ZJb7RP7ShZCyKQZYvMKldNYibOzYgnGVQM9eoA5ULaa8bjepPmqEz5kaAJC248IsezfJUYSaJDh1DoduzM3j7r4mjtviCJ910j-3Om-Oo1DAEsYUnJKKLtCsLIGzlTXK7M392Kg3Va5rargOjOEYWl4eHo1Q7D4GX-gfWxBsGh2Q1vfmjWMKaoT65zuWz_wl4n58dw9cmXyTiD7YZmH_gsTLn_1Oza4CSMhsnhLZHjVk'
                       },
-                      //redirect: 'follow', // manual, *follow, error
-                      //referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-                      body: JSON.stringify(root.data.data) // body data type must match "Content-Type" header
+                      // body: JSON.stringify(root.data.data) // body data type must match "Content-Type" header
                     })
                   .then((response) =>{
                     return response.json()
@@ -119,6 +92,46 @@
                     console.log(data)
 
                   })
+
+
+var mydata =  {
+                  "data" : {
+                      "type": "posts",
+                      "attributes": {
+                          "title": "My First Post",
+                          "slug": "my-first-post",
+                          "content": " blabla"
+                      },
+                      "links": {
+                          "self": "https://example.org/api/v1/posts/111"
+                      }
+                  }
+              };
+
+
+                fetch('/api/v1/posts', {
+                      method: 'POST',
+                      headers: {
+                         'Content-Type': 'application/vnd.api+json',
+                         'Accept': 'application/vnd.api+json',
+                         // 'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1],
+                         'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImMyMzgzN2JkMWZlOTM4YmFlM2E5ODMwZTM2N2Q2ZTM0YWU4NTQyYzQwOGM0ODdiYTNmNjkxNzlhNDc0NTQxMWZlZGM3YmQwZThhZTYwMTg1In0.eyJhdWQiOiIxIiwianRpIjoiYzIzODM3YmQxZmU5MzhiYWUzYTk4MzBlMzY3ZDZlMzRhZTg1NDJjNDA4YzQ4N2JhM2Y2OTE3OWE0NzQ1NDExZmVkYzdiZDBlOGFlNjAxODUiLCJpYXQiOjE2MDAyNzcwODksIm5iZiI6MTYwMDI3NzA4OSwiZXhwIjoxNjMxODEzMDg5LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.Uh7cr3dBsIh5_G2vrNfzjFq5efSdMZ3Hc6hjUobZo6VLTUuA_ihCZjADU6BKD-Ht_T67aJ0Afm94IJeHFy7yCHec8mQaJaQm4qW2Mz88xkEIRvNZR7gXbB86mtonzWJGKiMb9yabejGZDiIEBrF7OKJKmpMslzU0SnCNRUcAEs-GJy4UYNG0S7U_OaUy2hhDBVYBCQd2qKpdjjRmH6BKBmjipj9PtM7pa654-GGKDDJ0j-EJI96740vNcy8seLsrcjZmUT6gix_znVyglta4d8tT4S9bj2VTmBMZ6g6DlWf83NjewhzXDwiXBlNAAx39RcYxhK6BK7XXzLgYddKC6HDYsJ1syt-c5hLK4oCsPmKc71FBnQ6x70G8J3L9yn3lzK80q4Y6QBl5pXAZIYtPtdYtak9e3kwGMIg5w8zVz3JdqF9-tbLkWIOags6KTz4ZJb7RP7ShZCyKQZYvMKldNYibOzYgnGVQM9eoA5ULaa8bjepPmqEz5kaAJC248IsezfJUYSaJDh1DoduzM3j7r4mjtviCJ910j-3Om-Oo1DAEsYUnJKKLtCsLIGzlTXK7M392Kg3Va5rargOjOEYWl4eHo1Q7D4GX-gfWxBsGh2Q1vfmjWMKaoT65zuWz_wl4n58dw9cmXyTiD7YZmH_gsTLn_1Oza4CSMhsnhLZHjVk'
+                      },
+                      body: JSON.stringify(mydata)
+                       // body data type must match "Content-Type" header
+                    })
+                  .then((response) =>{
+                    return response.json()
+                  } )
+                  .then((data) => {
+
+                    console.log(data)
+
+                  })
+
+
+            }, 7000)
+
             }
 
 

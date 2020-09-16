@@ -1,10 +1,11 @@
 
-# Laravel JSON-API platform
+# Api mashine
 
-This application demonstrates how to use the
-[cloudcreativity/laravel-json-api](https://github.com/cloudcreativity/laravel-json-api)
-package to create a [JSON API](http://jsonapi.org) compliant API. This is demonstrated using Eloquent models as
-the domain records that are serialized in the API, but the package is not Eloquent specific.
+Source :
+  [cloudcreativity/laravel-json-api](https://github.com/cloudcreativity/laravel-json-api)
+  more [JSON API](http://jsonapi.org)
+  This is demonstrated using Eloquent models as the domain records that are serialized in the API,
+  but the package is not Eloquent specific.
 
 ## Installation
 
@@ -13,57 +14,58 @@ Clone project and navigate terminal to the root folder:
 ``` bash
 composer install
 cp .env.example .env
+php artisan passport:install
 php vendor/bin/homestead make
 vagrant up
 ```
 
+ - Testing POST GET
+
 ```js
 
-php artisan passport:install
-
+// test POST
 function RUN() {
-    var DATA = {
+
+  var DATA = {
     "data": {
-    "type": "posts",
-    "attributes": {
-      "title": "Hello World",
-      "content": "..."
-    },
-    "relationships": {
-      "tags": {
-          "data": [
-              {
-                  "type": "tags",
-                  "id": "1"
-              }
-          ]
+      "type": "posts",
+      "attributes": {
+        "title": "Hello World",
+        "content": "..."
+      },
+      "relationships": {
+        "tags": {
+            "data": [
+                {
+                    "type": "tags",
+                    "id": "1"
+                }
+            ]
+        }
       }
     }
-    }
-    }
+  }
 
-      fetch('/api/v1/posts/1/create', {
-              method: 'POST', // *GET, POST, PUT, DELETE, etc.
-              //mode: 'cors', // no-cors, *cors, same-origin
-              //cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-              //credentials: 'same-origin', // include, *same-origin, omit
-              headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1]
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-              },
-              //redirect: 'follow', // manual, *follow, error
-              //referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-              body: JSON.stringify(DATA) // body data type must match "Content-Type" header
-            })
-          .then((response) =>{
-            return response.json()
-          } )
-          .then((data) => {
-
-            console.log(data)
-
-          })
+  fetch('/api/v1/posts/1', {
+    method: 'GET', // *GET, POST, PUT, DELETE, etc.
+    //mode: 'cors', // no-cors, *cors, same-origin
+    //cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    //credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1]
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    //redirect: 'follow', // manual, *follow, error
+    //referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(DATA) // body data type must match "Content-Type" header
+  })
+  .then((response) =>{
+    return response.json()
+  } )
+  .then((data) => {
+    console.log(data)
+  })
 }
 ```
 
