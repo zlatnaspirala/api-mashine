@@ -7,10 +7,17 @@
 
 require('./bootstrap');
 import VueMaterial from 'vue-material'
-window.Vue = require('vue');
+import Vue from 'vue';
+(window as any).Vue = Vue;
 Vue.use(VueMaterial);
 
+/*
 import postMashine from "./components/post-mashine/post-mashine.vue"
+import myComponent from "./components/my-component/my-component.vue"
+import AuthorizedClients from "./components/passport/AuthorizedClients.vue"
+import Clients from "./components/passport/Clients.vue"
+import PersonalAccessTokens from "./components/passport/PersonalAccessTokens.vue"
+*/
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -20,14 +27,13 @@ import postMashine from "./components/post-mashine/post-mashine.vue"
 
 
 Vue.component(
-  'post-mashine',
-   require('./components/post-mashine/post-mashine.vue')
-);
-
+  'postMashine',
+     require('./components/post-mashine/post-mashine.vue')
+)
 
  Vue.component(
     'my-components',
-    require('./components/my-component/my-component.vue')
+     require('./components/my-component/my-component.vue')
 );
 
 Vue.component(
