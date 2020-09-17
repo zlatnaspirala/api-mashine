@@ -1,10 +1,11 @@
 {
     "compilerOptions": {
         "target": "es5",
-        "strict": false,
-        "module": "commonjs",
+        "strict": true,
+        "module": "es2015",
         "moduleResolution": "node",
         "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
     },
     "include": [
         "resources/assets/js/**/*"

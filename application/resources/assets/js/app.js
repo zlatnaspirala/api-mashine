@@ -6,11 +6,9 @@
  */
 
 require('./bootstrap');
-import VueMaterial from 'vue-material'
 window.Vue = require('vue');
-Vue.use(VueMaterial);
+import Vue from 'vue';
 
-import postMashine from "./components/post-mashine/post-mashine.vue"
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -18,68 +16,63 @@ import postMashine from "./components/post-mashine/post-mashine.vue"
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-
-Vue.component(
-  'post-mashine',
-   require('./components/post-mashine/post-mashine.vue')
-);
+import passportClients from './components/passport/Clients.vue'
+import passportAuthorizedClients from './components/passport/AuthorizedClients.vue'
+import passportPersonalAccessTokens from './components/passport/PersonalAccessTokens.vue'
 
 
- Vue.component(
-    'my-components',
-    require('./components/my-component/my-component.vue')
-);
 
 Vue.component(
     'passport-clients',
-    require('./components/passport/Clients.vue')
+    passportClients
 );
 
  Vue.component(
      'passport-authorized-clients',
-     require('./components/passport/AuthorizedClients.vue')
+     passportAuthorizedClients
 );
 
 Vue.component(
     'passport-personal-access-tokens',
-    require('./components/passport/PersonalAccessTokens.vue')
+    passportPersonalAccessTokens
 );
 
+
+
+  /**
+   * this.components = {
+      myComponent,
+      passportClients,
+      passportAuthorizedClients,
+      passportPersonalAccessTokens
+    }
+   */
+
+
+/*
+var Application = new Vue({
+  render: h => h(App, {
+    props: {
+      AppPropVersion: 'Finally'
+    },
+    components: {
+      myComponent,
+      passportClients,
+      passportAuthorizedClients,
+      passportPersonalAccessTokens
+    }
+  }),
+}).$mount('#app')
+*/
 
 const app = new Vue({
     el: '#app'
 });
 
 /*
-const AppProps = Vue.extend({
-  props: {
-    AppPropVersion: String
-  }
-});
-*/
-  // Register for components
-
-/*
-class App extends AppProps {
-
-    constructor() {
-      super()
-      console.log("test App.")
-    }
-
-     mounted () {
-      console.log("test App.")
-    }
-
-}
-*/
-/*
-var app = new Vue({
-  // store,
+ const app = new Vue({
   render: h => h(App, {
-    props: {
-      AppPropVersion: '0.1.2'
-    }
+    el: '#app'
   }),
-}).$mount('#app')
+ }).$mount('#app');
 */

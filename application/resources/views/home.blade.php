@@ -5,10 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <passport-personal-access-tokens></passport-personal-access-tokens>
-            <!--passport-authorized-clients></passport-authorized-clients-->
+            <passport-authorized-clients></passport-authorized-clients>
             <passport-clients></passport-clients>
             <my-component></my-component>
-            <post-mashine></post-mashine>
         </div>
     </div>
 </div>

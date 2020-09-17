@@ -51,7 +51,7 @@
 </template>
 
 <script>
-    export default {
+export default {
         /*
          * The component's data.
          */

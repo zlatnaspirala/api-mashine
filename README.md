@@ -9,6 +9,7 @@ cp .env.example .env
 php artisan passport:install
 php artisan migrate
 php artisan db:seed
+php artisan key:generate
 php artisan serve
 npm run dev
 ```
@@ -17,7 +18,7 @@ Update:
 
 ```
   npm remove laravel-mix
-  
+
 ```
 
 
