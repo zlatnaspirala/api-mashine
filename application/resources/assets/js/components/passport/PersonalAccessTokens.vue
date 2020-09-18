@@ -1,3 +1,4 @@
+
 <style scoped>
     .action-link {
         cursor: pointer;
@@ -156,9 +157,6 @@
 
 <script>
     export default {
-        /*
-         * The component's data.
-         */
         data() {
             return {
                 accessToken: null,
@@ -174,24 +172,11 @@
             };
         },
 
-        /**
-         * Prepare the component (Vue 1.x).
-         */
-        ready() {
-            this.prepareComponent();
-        },
-
-        /**
-         * Prepare the component (Vue 2.x).
-         */
         mounted() {
             this.prepareComponent();
         },
 
         methods: {
-            /**
-             * Prepare the component.
-             */
             prepareComponent() {
                 this.getTokens();
                 this.getScopes();
@@ -201,9 +186,6 @@
                 });
             },
 
-            /**
-             * Get all of the personal access tokens for the user.
-             */
             getTokens() {
                 axios.get('/oauth/personal-access-tokens')
                         .then(response => {
@@ -211,9 +193,6 @@
                         });
             },
 
-            /**
-             * Get all of the available scopes.
-             */
             getScopes() {
                 axios.get('/oauth/scopes')
                         .then(response => {
@@ -221,9 +200,6 @@
                         });
             },
 
-            /**
-             * Show the form for creating new tokens.
-             */
             showCreateTokenForm() {
                 $('#modal-create-token').modal('show');
             },
@@ -284,9 +260,6 @@
                 $('#modal-access-token').modal('show');
             },
 
-            /**
-             * Revoke the given token.
-             */
             revoke(token) {
                 axios.delete('/oauth/personal-access-tokens/' + token.id)
                         .then(response => {
@@ -295,4 +268,5 @@
             }
         }
     }
+
 </script>

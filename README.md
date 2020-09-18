@@ -10,6 +10,7 @@ php artisan passport:install
 php artisan migrate
 php artisan db:seed
 php artisan key:generate
+php artisan passport:keys
 php artisan serve
 npm run dev
 ```

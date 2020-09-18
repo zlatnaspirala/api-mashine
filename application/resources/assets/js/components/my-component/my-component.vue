@@ -1,7 +1,9 @@
 
 <template>
 <div>
-  FINALLY MY COMPONENT IN CLASS VUE COMPONENT
+  <md-button class="md-prioryty md-raised">
+    ADD NEW POST
+  </md-button>
 </div>
 </template>
 
@@ -9,11 +11,37 @@
 
 import Component from 'vue-class-component'
 import Vue from 'vue';
+import VueMaterial from 'vue-material'
+  import { mdButton,
+           mdInput,
+           mdField,
+           mdContent
+  } from 'vue-material'
+
+Vue.use(VueMaterial)
+
+import 'vue-material/dist/vue-material.min.css'
+import 'vue-material/dist/theme/default.css'
+
+// Register for components
+@Component({
+  components: {
+    mdButton,
+    mdInput,
+    mdField,
+    mdContent
+  }
+})
 
 @Component
 export default class myComponent extends Vue {
 
   public name = "my-component"
+
+  constructor() {
+    super()
+
+  }
 
   data() {
     return {
@@ -61,11 +89,11 @@ export default class myComponent extends Vue {
           "type": "posts",
           "attributes": {
               "title": "My First Post",
-              "slug": "my-first-post",
-              "content": " blabla"
+              "slug": "nikola-test",
+              "content": " blabla dfgdfg"
           },
           "links": {
-              "self": "https://example.org/api/v1/posts/"
+              "self": "https://localhost/api/v1/posts/"
           }
         }
       };
@@ -75,8 +103,11 @@ export default class myComponent extends Vue {
         method: 'POST',
         headers: {
             'Content-Type': 'application/vnd.api+json',
-            'Accept': 'application/vnd.api+json',
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImMyMzgzN2JkMWZlOTM4YmFlM2E5ODMwZTM2N2Q2ZTM0YWU4NTQyYzQwOGM0ODdiYTNmNjkxNzlhNDc0NTQxMWZlZGM3YmQwZThhZTYwMTg1In0.eyJhdWQiOiIxIiwianRpIjoiYzIzODM3YmQxZmU5MzhiYWUzYTk4MzBlMzY3ZDZlMzRhZTg1NDJjNDA4YzQ4N2JhM2Y2OTE3OWE0NzQ1NDExZmVkYzdiZDBlOGFlNjAxODUiLCJpYXQiOjE2MDAyNzcwODksIm5iZiI6MTYwMDI3NzA4OSwiZXhwIjoxNjMxODEzMDg5LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.Uh7cr3dBsIh5_G2vrNfzjFq5efSdMZ3Hc6hjUobZo6VLTUuA_ihCZjADU6BKD-Ht_T67aJ0Afm94IJeHFy7yCHec8mQaJaQm4qW2Mz88xkEIRvNZR7gXbB86mtonzWJGKiMb9yabejGZDiIEBrF7OKJKmpMslzU0SnCNRUcAEs-GJy4UYNG0S7U_OaUy2hhDBVYBCQd2qKpdjjRmH6BKBmjipj9PtM7pa654-GGKDDJ0j-EJI96740vNcy8seLsrcjZmUT6gix_znVyglta4d8tT4S9bj2VTmBMZ6g6DlWf83NjewhzXDwiXBlNAAx39RcYxhK6BK7XXzLgYddKC6HDYsJ1syt-c5hLK4oCsPmKc71FBnQ6x70G8J3L9yn3lzK80q4Y6QBl5pXAZIYtPtdYtak9e3kwGMIg5w8zVz3JdqF9-tbLkWIOags6KTz4ZJb7RP7ShZCyKQZYvMKldNYibOzYgnGVQM9eoA5ULaa8bjepPmqEz5kaAJC248IsezfJUYSaJDh1DoduzM3j7r4mjtviCJ910j-3Om-Oo1DAEsYUnJKKLtCsLIGzlTXK7M392Kg3Va5rargOjOEYWl4eHo1Q7D4GX-gfWxBsGh2Q1vfmjWMKaoT65zuWz_wl4n58dw9cmXyTiD7YZmH_gsTLn_1Oza4CSMhsnhLZHjVk'
+            'Accept': '*/*',
+             // 'Content-Type': 'application/vnd.api+json',
+             // 'Accept': 'application/vnd.api+json',
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImFhMGE5NDc3ZTA0OGY2ZWRkYjk5ZTFkNTBkMzE4NTA5ZjU3OTVlYTE5YTFkNzFiZjNhMzJkYzE0YjJiZjljNTM3YTk1ZWRiM2FjNDY5ZDI5In0.eyJhdWQiOiIxIiwianRpIjoiYWEwYTk0NzdlMDQ4ZjZlZGRiOTllMWQ1MGQzMTg1MDlmNTc5NWVhMTlhMWQ3MWJmM2EzMmRjMTRiMmJmOWM1MzdhOTVlZGIzYWM0NjlkMjkiLCJpYXQiOjE2MDA0NDIxNjEsIm5iZiI6MTYwMDQ0MjE2MSwiZXhwIjoxNjMxOTc4MTYxLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.hR7O4URXwJ80AmQwdHqrNNuFlqYeWfab_mIqMm7b4yFt8neofklQizuW6FsRe8N1K3kHB59l8MJIj6LbnWv_N928Fmsb2-C2_G5cbJcRI2WdEzNEHNC-4MmtY05lQEeTQ3KyxUh0gF-uFyLfkSbr_0WiMaXSp1tmYDo6v0GEeYXl3jOUYcdNaflBmpWQF3jVMGWShPFWKxG-W1sAIHv4o3s3nIoUEDWdrL1ig_OZV9msU07S34tmRmcLeKRqrfgUpqwmvqUjYzT20Yk2vAqmuGzlelA5JOfbF--NARJmYGDNjkwtn-7O56LOjVIHJGabTuTBm_-UGWMQSHfyyW5PsW0N0HMGWk_wwOMDed1D3KtB9qfCJOjXvAgCtZDgTwjgG1duP2rTvn4QrZ-5k2N0fsQC89ddc0RAP7kXC3l3Z-w6Wtn28VbsP-CBLTHXB1DTDw1cuk0eB4C-oR9fwSkPugyp_vF3IzUNpHOSsbBVFeUPnBj_Vq8V492DlOLMZRZiEDZREI4yyNiBpKjHSksL3rVzi08lamdsnZtkkwHacTq4KJGWG5tTpHu0mFhwZ4olpQLuJqJzQXHS1TGhIqbyeuLwJqwSklXmxXRu-Zm5sJPpeYCjy3vGi07AtyLx3izflQxeAIMFbxmBeppAVc3R1Jpl-5RnM1XZB3UBsrJu9S8',
+            'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1]
         },
         body: JSON.stringify(mydata)
       })
