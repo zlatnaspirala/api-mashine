@@ -20,14 +20,5 @@ class DatabaseSeeder extends Seeder
         factory(\App\Tag::class, 10)->create();
 
         $this->call(PostSeeder::class);
-
-        /**
-         * Test implementation
-         */
-        \App\Administrator::create([
-            'name' => 'Nikola lukic',
-            'email' => 'nikola@example.com',
-            'password' => bcrypt('password'),
-        ]);
     }
 }

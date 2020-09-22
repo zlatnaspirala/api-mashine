@@ -3,8 +3,6 @@
 use CloudCreativity\LaravelJsonApi\Facades\JsonApi;
 use CloudCreativity\LaravelJsonApi\Routing\RouteRegistrar as Api;
 
-use App\Http\Resources\administrator as UserResource;
-use App\administrator;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -28,8 +26,4 @@ JsonApi::register('v1', ['namespace' => 'Api'], function (Api $api) {
         'has-many' => ['comments', 'tags']
     ]);
     $api->resource('sites');
-});
-
-Route::get('/user', function () {
-    return new administrator(administrator::find(1));
 });

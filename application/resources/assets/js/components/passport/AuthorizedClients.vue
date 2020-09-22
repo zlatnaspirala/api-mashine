@@ -22,7 +22,7 @@
             </thead>
 
             <tbody>
-              <tr v-bind:key="token in tokens">
+              <tr v-for="token in tokens">
                 <!-- Client Name -->
                 <td style="vertical-align: middle;">
                   {{ token.client.name }}

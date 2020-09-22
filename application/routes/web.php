@@ -19,17 +19,3 @@ Auth::routes();
 Route::redirect('/', '/home');
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/admin', 'AdminController@index')->name('admin');
-
-
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
