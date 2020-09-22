@@ -23,7 +23,7 @@ window.Vue = require('vue');
 
  Vue.component(
     'my-component',
-     myComponent // require('./components/my-component/my-component.vue')
+     myComponent
 );
 
 Vue.component(
