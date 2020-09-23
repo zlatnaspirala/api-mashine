@@ -1,8 +1,8 @@
 
 <template>
 <div>
-  <md-button class="md-prioryty md-raised">
-    ADD NEW POST
+  <md-button class="md-prioryty md-raised" @click="postMyGameplay">
+    testRun
   </md-button>
 </div>
 </template>
@@ -60,31 +60,28 @@ export default class myComponent extends Vue {
   }
 
   testRun () {
-
     var root = this;
-    setTimeout(function() {
-
-      console.log("test run")
-
-      fetch('/api/v1/posts/1', {
-          method: 'GET',
-          headers: {
-              'Content-Type': '*',
-              'Accept': 'application/json, text/plain, */*',
-              'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1],
-              // 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImQ1MzhmMzdiYmE1NDU4NTA0YWY0NzE3MWJlYjlkZTBjNjYyYjlmZTM5ZmNiZTU5M2I5M2VjNjgxNGI4ODkwNWQzZjE3NmRmMDk5Y2M4Yzg3In0.eyJhdWQiOiIyIiwianRpIjoiZDUzOGYzN2JiYTU0NTg1MDRhZjQ3MTcxYmViOWRlMGM2NjJiOWZlMzlmY2JlNTkzYjkzZWM2ODE0Yjg4OTA1ZDNmMTc2ZGYwOTljYzhjODciLCJpYXQiOjE2MDA0NzQyMTUsIm5iZiI6MTYwMDQ3NDIxNSwiZXhwIjoxNjMyMDEwMjE1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.HId8yWDDEqXYo48SuK-y2sXnFktpCz-5i9vgchtlFa7rwBcoVgNRBg0fOEw0nqQz2PAtMXBoihJqhjuAaRrFh76LyT_RnPZegIETrFn7YQSDYcwTeLFsTA5iReESt0Z2sNKSzaUFOTNekumSOHuqkx9tftl4FF6TFRtGJ9Z7FSFEi2dbC6pyjngin0Y02DyrzzTF6guvtwosU4CvlXmyG6UKOFeke4SWZ_Qikcmuu5ygy62feIMNqyOr0NW_88JVqtwQNl2fLwJaZ1FaRVxxzR4R3rZNGFhDkN7AOnudD2MYIOzZV7as-A6a1zkrIHoohhS14bvZRfpp-OB_S-go9bUBlceBIrBsia4RhCXwvNCEDAmvyNS3QJT12N_KhDH1emEyMHK2ZcREcr6nLuj21ce4dQkCBepY4T4ysVOIcxgi0rInTrbBXRpLgZ0PHPolM7RLivKmWTJw3oopfmcaOY7f6vLAZaEfoBBUpo2asJ5JxEGYHHj_5aJWhNHSTxqPlv55yTsAjz0apJ_yfGGczJ7PRfOW-c-h3BQxNGwTV-H1grbtYM7jeb2HCa0tzqzu6V05Y7AbinL59d1Sd23HU3k5YCLZdMHR6cU5wyWxDEbHyvl7gZu9iinSuQrKWmqz9avyrJhVIlVWlsqSynCZDc--DjqSzvS-5cJ3p6yHC00'
-          },
-          // body: JSON.stringify(root.data.data) // body data type must match "Content-Type" header
-        })
-      .then((response) =>{
-        return response.json()
-      } )
-      .then((data) => {
-        console.log(data)
+    console.log("test run")
+    fetch('/api/v1/posts/1', {
+        method: 'GET',
+        headers: {
+            'Content-Type': '*',
+            'Accept': 'application/json, text/plain, */*',
+            'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1]
+        }
       })
+    .then((response) =>{
+      return response.json()
+    } )
+    .then((data) => {
+      console.log(data)
+    })
 
+  }
 
-      var mydata =  {
+  postMyPost () {
+
+    var mydata =  {
       "data" : {
           "type": "posts",
           "attributes": {
@@ -96,32 +93,66 @@ export default class myComponent extends Vue {
               "self": "https://localhost/api/v1/posts/"
           }
         }
-      };
+     };
 
 
-      fetch('/api/v1/posts', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/vnd.api+json',
-            'Accept': '*/*',
-             // 'Content-Type': 'application/vnd.api+json',
-             // 'Accept': 'application/vnd.api+json',
-             'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImQ1MzhmMzdiYmE1NDU4NTA0YWY0NzE3MWJlYjlkZTBjNjYyYjlmZTM5ZmNiZTU5M2I5M2VjNjgxNGI4ODkwNWQzZjE3NmRmMDk5Y2M4Yzg3In0.eyJhdWQiOiIyIiwianRpIjoiZDUzOGYzN2JiYTU0NTg1MDRhZjQ3MTcxYmViOWRlMGM2NjJiOWZlMzlmY2JlNTkzYjkzZWM2ODE0Yjg4OTA1ZDNmMTc2ZGYwOTljYzhjODciLCJpYXQiOjE2MDA0NzQyMTUsIm5iZiI6MTYwMDQ3NDIxNSwiZXhwIjoxNjMyMDEwMjE1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.HId8yWDDEqXYo48SuK-y2sXnFktpCz-5i9vgchtlFa7rwBcoVgNRBg0fOEw0nqQz2PAtMXBoihJqhjuAaRrFh76LyT_RnPZegIETrFn7YQSDYcwTeLFsTA5iReESt0Z2sNKSzaUFOTNekumSOHuqkx9tftl4FF6TFRtGJ9Z7FSFEi2dbC6pyjngin0Y02DyrzzTF6guvtwosU4CvlXmyG6UKOFeke4SWZ_Qikcmuu5ygy62feIMNqyOr0NW_88JVqtwQNl2fLwJaZ1FaRVxxzR4R3rZNGFhDkN7AOnudD2MYIOzZV7as-A6a1zkrIHoohhS14bvZRfpp-OB_S-go9bUBlceBIrBsia4RhCXwvNCEDAmvyNS3QJT12N_KhDH1emEyMHK2ZcREcr6nLuj21ce4dQkCBepY4T4ysVOIcxgi0rInTrbBXRpLgZ0PHPolM7RLivKmWTJw3oopfmcaOY7f6vLAZaEfoBBUpo2asJ5JxEGYHHj_5aJWhNHSTxqPlv55yTsAjz0apJ_yfGGczJ7PRfOW-c-h3BQxNGwTV-H1grbtYM7jeb2HCa0tzqzu6V05Y7AbinL59d1Sd23HU3k5YCLZdMHR6cU5wyWxDEbHyvl7gZu9iinSuQrKWmqz9avyrJhVIlVWlsqSynCZDc--DjqSzvS-5cJ3p6yHC00',
+    fetch('/api/v1/posts', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/vnd.api+json',
+          'Accept': '*/*',
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc5MzEzNzlkMWI3OTgxYjQyZjg4ZjQ0MjEwMjg4OGM5MzQzNjAyYjUwZWQ5MDYzODdkZTFiNjljNDFjYWJkMGM5NGQwN2YxY2E2NzYzYjdmIn0.eyJhdWQiOiIxIiwianRpIjoiNzkzMTM3OWQxYjc5ODFiNDJmODhmNDQyMTAyODg4YzkzNDM2MDJiNTBlZDkwNjM4N2RlMWI2OWM0MWNhYmQwYzk0ZDA3ZjFjYTY3NjNiN2YiLCJpYXQiOjE2MDA4OTc0MzcsIm5iZiI6MTYwMDg5NzQzNywiZXhwIjoxNjMyNDMzNDM2LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.G8Rlb-my7CmVUXfbPRN1UgW1vOf6fH8y51RQhYjeguYPbrBSou3gU0HMV4gaxSQW0wkzc27U2f6AeIgARBKgkSFcYtERtQrUgDNxcu_eRHyVJNUzxH4408OU35DTLyZ1RqwDyBkibtag9snUfumbOzSzxm8NVCTW0hJk21w5hMRwjarlVbNg3GUWi279z05chf6ZiIXp5grRY1TjGIU7jn01YvbQZ8CnHLzUit3xMCLb5og0mzsAg5h9hRJK-UG-WTveX1hlPY0AStMpcUbEVvCTZIsFpa1eBHgfB8CzEUTeeGWiABFKXgl9BLly9tHj4Jz2BIuTPgnY0_QvUIy1o0SRRwriH0fGO2SbYdYRxJjghzyBuA9h2Wd_Y3ZdBk-ONLyjz0Lei6R-H7-VjcewevWome-iLMHDC-G5qo3D34KdsSu5M-qlXLQl2KI303wb22CY_oAHovTqoNY6KX6wA2K4yx2n9qKctrMlak9STsJn5qi4mZvppj5wVQyQs9X2AHrWc7uykAIw_mAqVJh1CEkhWhI0MNTTkzh0I0KYxRAyrc7vZZ85YpjxJRPH1PF3zj_zxj1yn4WkxSuEpdmsns737zlZ7WUHM1kJTJIAVMN3w3O2kDjetcuqLBZnPs8DUbO-uqhU83hgmv2xfwVG73VmyN1YuJY8dIB9AQnxP9M',
             'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1]
-        },
-        body: JSON.stringify(mydata)
-      })
-      .then((response) =>{
-        return response.json()
-      } )
-      .then((data) => {
-        console.log(data)
-      })
+      },
+      body: JSON.stringify(mydata)
+    })
+    .then((response) =>{
+      return response.json()
+    } )
+    .then((data) => {
+      console.log(data)
+    })
 
-      }, 4000)
-
-    }
 
   }
+
+
+  postMyGameplay () {
+
+    var mydata =  {
+    "data" : {
+        "type": "gameplays",
+        "attributes": {
+            "title": "My First gameplays",
+            "channelid": "nikola-tegameplaysst",
+            "content": " gameplaysgameplaysgameplaysgameplays dfgdfg"
+        },
+        "links": {
+            "self": "https://localhost/api/v1/gameplays/"
+        }
+      }
+    };
+
+
+    fetch('/api/v1/gameplays', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/vnd.api+json',
+          'Accept': '*/*',
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc5MzEzNzlkMWI3OTgxYjQyZjg4ZjQ0MjEwMjg4OGM5MzQzNjAyYjUwZWQ5MDYzODdkZTFiNjljNDFjYWJkMGM5NGQwN2YxY2E2NzYzYjdmIn0.eyJhdWQiOiIxIiwianRpIjoiNzkzMTM3OWQxYjc5ODFiNDJmODhmNDQyMTAyODg4YzkzNDM2MDJiNTBlZDkwNjM4N2RlMWI2OWM0MWNhYmQwYzk0ZDA3ZjFjYTY3NjNiN2YiLCJpYXQiOjE2MDA4OTc0MzcsIm5iZiI6MTYwMDg5NzQzNywiZXhwIjoxNjMyNDMzNDM2LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.G8Rlb-my7CmVUXfbPRN1UgW1vOf6fH8y51RQhYjeguYPbrBSou3gU0HMV4gaxSQW0wkzc27U2f6AeIgARBKgkSFcYtERtQrUgDNxcu_eRHyVJNUzxH4408OU35DTLyZ1RqwDyBkibtag9snUfumbOzSzxm8NVCTW0hJk21w5hMRwjarlVbNg3GUWi279z05chf6ZiIXp5grRY1TjGIU7jn01YvbQZ8CnHLzUit3xMCLb5og0mzsAg5h9hRJK-UG-WTveX1hlPY0AStMpcUbEVvCTZIsFpa1eBHgfB8CzEUTeeGWiABFKXgl9BLly9tHj4Jz2BIuTPgnY0_QvUIy1o0SRRwriH0fGO2SbYdYRxJjghzyBuA9h2Wd_Y3ZdBk-ONLyjz0Lei6R-H7-VjcewevWome-iLMHDC-G5qo3D34KdsSu5M-qlXLQl2KI303wb22CY_oAHovTqoNY6KX6wA2K4yx2n9qKctrMlak9STsJn5qi4mZvppj5wVQyQs9X2AHrWc7uykAIw_mAqVJh1CEkhWhI0MNTTkzh0I0KYxRAyrc7vZZ85YpjxJRPH1PF3zj_zxj1yn4WkxSuEpdmsns737zlZ7WUHM1kJTJIAVMN3w3O2kDjetcuqLBZnPs8DUbO-uqhU83hgmv2xfwVG73VmyN1YuJY8dIB9AQnxP9M',
+            'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1]
+      },
+      body: JSON.stringify(mydata)
+    })
+    .then((response) =>{
+      return response.json()
+    } )
+    .then((data) => {
+      console.log(data)
+    })
+
+
+  }
+}
 
 </script>

@@ -43,6 +43,7 @@ return [
         'sites' => \App\Site::class,
         'tags' => \App\Tag::class,
         'users' => \App\User::class,
+        'gameplays' => \Gameplay::class
     ],
 
     /*

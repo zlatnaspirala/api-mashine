@@ -34,6 +34,19 @@ class CreatePostsAndCommentsTables extends Migration
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
+
+        /** Test */
+        Schema::create('gameplay', function (Blueprint $table) {
+            $table->increments('id');
+            $table->timestamps();
+            $table->integer('author_id')->unsigned();
+            $table->string('title');
+            $table->string('channelid');
+            $table->text('content');
+
+            $table->unique('channelid');
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+        });
     }
 
     /**

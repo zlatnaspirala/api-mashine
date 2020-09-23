@@ -15,15 +15,25 @@ use CloudCreativity\LaravelJsonApi\Routing\RouteRegistrar as Api;
 */
 
 JsonApi::register('v1', ['namespace' => 'Api'], function (Api $api) {
+
     $api->resource('comments', [
         'middleware' => 'json-api.auth:default',
         'has-one' => ['post', 'created-by'],
     ]);
+
     $api->resource('posts', [
         'middleware' => 'json-api.auth:default',
         'controller' => true,
         'has-one' => 'author',
         'has-many' => ['comments', 'tags']
     ]);
+
+    $api->resource('gameplays', [
+        'middleware' => 'json-api.auth:default',
+        'controller' => true,
+        'has-one' => 'author',
+        'has-many' => []
+    ]);
+
     $api->resource('sites');
 });
