@@ -43,7 +43,7 @@ return [
         'sites' => \App\Site::class,
         'tags' => \App\Tag::class,
         'users' => \App\User::class,
-        'gameplays' => \Gameplay::class
+        'gameplays' => \App\Gameplay::class
     ],
 
     /*
@@ -113,6 +113,7 @@ return [
     */
     'encoding' => [
         'application/vnd.api+json' => JSON_PRESERVE_ZERO_FRACTION,
+        'application/vnd.api+json',
     ],
 
     /*

@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Comment;
 use App\Policies;
 use App\Post;
+use App\Gameplay;
 use App\User;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -21,7 +22,7 @@ class AuthServiceProvider extends ServiceProvider
         Comment::class => Policies\CommentPolicy::class,
         Post::class => Policies\PostPolicy::class,
         User::class => Policies\UserPolicy::class,
-        Gameplay::class => Policies\Gameplay::class
+        Gameplay::class => Policies\GameplayPolicy::class
     ];
 
     /**

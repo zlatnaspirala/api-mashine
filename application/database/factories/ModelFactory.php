@@ -47,3 +47,16 @@ $factory->define(App\Tag::class, function (Faker $faker) {
         'name' => $faker->country,
     ];
 });
+
+/** Gameplay */
+$factory->define(App\Gameplay::class, function (Faker $faker) {
+    return [
+        'title' => $faker->sentence(3),
+        'channelid' => $faker->slug(),
+        'content' => $faker->paragraphs(3, true),
+        'published_at' => $faker->dateTime,
+        'author_id' => function () {
+            return factory(App\User::class)->create()->getKey();
+        },
+    ];
+});

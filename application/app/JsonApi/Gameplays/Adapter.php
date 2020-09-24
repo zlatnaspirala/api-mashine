@@ -48,7 +48,7 @@ class Adapter extends AbstractAdapter
      */
     public function __construct(StandardStrategy $paging)
     {
-        parent::__construct(new \App\Gameplay(), $paging);
+        parent::__construct(new Gameplay(), $paging);
     }
 
     /**
@@ -66,7 +66,13 @@ class Adapter extends AbstractAdapter
      */
     protected function filter($query, Collection $filters)
     {
-        $this->filterWithScopes($query, $filters);
+        if ($filters->has('title')) {
+            $query->where('gameplays.title', 'like', '%' . $filters->get('title') . '%');
+        }
+
+        if ($filters->has('channelid')) {
+            $query->where('gameplays.channelid', $filters->get('channelid'));
+        }
     }
 
     /**

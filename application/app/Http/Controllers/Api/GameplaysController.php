@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Events\PostCreated;
-use App\Post;
+use App\Events\GameplayCreated;
+use App\Gameplay;
 use CloudCreativity\LaravelJsonApi\Http\Controllers\JsonApiController;
 
 class GameplaysController extends JsonApiController
@@ -15,6 +15,6 @@ class GameplaysController extends JsonApiController
      */
     public function created(Gameplay $post)
     {
-        event(new PostCreated($post));
+        event(new GameplayCreated($post));
     }
 }

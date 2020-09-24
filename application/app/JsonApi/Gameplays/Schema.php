@@ -47,6 +47,8 @@ class Schema extends SchemaProvider
      */
     public function getAttributes($resource)
     {
+         $publishedAt = $resource->published_at;
+
          return [
             'created-at' => $resource->created_at->toAtomString(),
             'updated-at' => $resource->updated_at->toAtomString(),

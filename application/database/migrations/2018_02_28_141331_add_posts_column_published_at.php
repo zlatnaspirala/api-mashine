@@ -16,6 +16,10 @@ class AddPostsColumnPublishedAt extends Migration
         Schema::table('posts', function (Blueprint $table) {
             $table->dateTime('published_at')->nullable();
         });
+
+        Schema::table('gameplays', function (Blueprint $table) {
+            $table->dateTime('published_at')->nullable();
+        });
     }
 
     /**
@@ -26,6 +30,10 @@ class AddPostsColumnPublishedAt extends Migration
     public function down()
     {
         Schema::table('posts', function (Blueprint $table) {
+            $table->dropColumn('published_at');
+        });
+
+        Schema::table('gameplays', function (Blueprint $table) {
             $table->dropColumn('published_at');
         });
     }

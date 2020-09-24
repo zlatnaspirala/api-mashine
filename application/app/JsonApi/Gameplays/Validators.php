@@ -59,9 +59,7 @@ class Validators extends AbstractValidators
         return [
             'title' => "required|string|between:1,255",
             'content' => "required|string|min:1",
-            'channelid' => "required|alpha_dash|$slugUnique",
-            'tags' => 'array',
-            'tags.*.type' => 'in:tags',
+            'channelid' => "required|alpha_dash|$slugUnique"
         ];
     }
 

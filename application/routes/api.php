@@ -31,8 +31,8 @@ JsonApi::register('v1', ['namespace' => 'Api'], function (Api $api) {
     $api->resource('gameplays', [
         'middleware' => 'json-api.auth:default',
         'controller' => true,
-        'has-one' => 'author',
-        'has-many' => []
+        'has-one' => 'author'
+        // 'has-many' => []
     ]);
 
     $api->resource('sites');

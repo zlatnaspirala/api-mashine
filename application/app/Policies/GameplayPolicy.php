@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\User;
-use App\Post;
+use App\Gameplay;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class GameplayPolicy
@@ -49,7 +49,7 @@ class GameplayPolicy
      * Determine whether the user can delete the post.
      *
      * @param  \App\User  $user
-     * @param  \App\Post  $post
+     * @param  \App\Gameplay  $post
      * @return mixed
      */
     public function delete(User $user, Gameplay $post)

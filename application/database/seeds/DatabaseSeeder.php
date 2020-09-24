@@ -20,5 +20,7 @@ class DatabaseSeeder extends Seeder
         factory(\App\Tag::class, 10)->create();
 
         $this->call(PostSeeder::class);
+        $this->call(GameplaySeeder::class);
+
     }
 }

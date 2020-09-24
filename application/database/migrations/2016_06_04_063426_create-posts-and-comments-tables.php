@@ -36,7 +36,7 @@ class CreatePostsAndCommentsTables extends Migration
         });
 
         /** Test */
-        Schema::create('gameplay', function (Blueprint $table) {
+        Schema::create('gameplays', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->integer('author_id')->unsigned();

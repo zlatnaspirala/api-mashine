@@ -31,8 +31,6 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <li><a class="nav-link" href="http://laravel-json-api.readthedocs.io" target="_blank">Documentation</a></li>
-                        <li><a class="nav-link" href="https://github.com/cloudcreativity/laravel-json-api" target="_blank">Github</a></li>
                         <!-- Authentication Links -->
                         @guest
                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
