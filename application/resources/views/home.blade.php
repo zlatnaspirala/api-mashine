@@ -1,14 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <passport-personal-access-tokens></passport-personal-access-tokens>
+<div style="display: flex;
+            flex-direction: column;
+            margin: auto;
+            align-items: center;" >
+    <!--div class="row justify-content-center"-->
+        <div class="col-md-10">
+            <passport-personal-access-tokens v-show="false"></passport-personal-access-tokens>
             <passport-authorized-clients></passport-authorized-clients>
             <passport-clients></passport-clients>
-            <my-component></my-component>
+            <posts-component></posts-component>
         </div>
-    </div>
+    <!--/div-->
 </div>
 @endsection

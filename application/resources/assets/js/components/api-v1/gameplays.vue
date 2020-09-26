@@ -1,8 +1,20 @@
 
 <template>
 <div>
+
+  <md-field class="md-content-options">
+    <label class="labelText" >Share post</label>
+    <md-input
+            @keyup.enter="execute()"
+            v-model="yts.mySearchQuery"
+            class="md-primary md-raised"
+            placeholder="Search youtube:"
+            maxlength="1200">
+    </md-input>
+  </md-field>
+
   <md-button class="md-prioryty md-raised" @click="postMyGameplay">
-    testRun
+    POST
   </md-button>
   <md-button class="md-prioryty md-raised" @click="postMyPost">
     testRun
@@ -37,29 +49,26 @@ import 'vue-material/dist/theme/default.css'
 })
 
 @Component
-export default class myComponent extends Vue {
+export default class gameplaysComponent extends Vue {
 
-  public name = "my-component"
+  public name = "gameplays-component"
 
   constructor() {
     super()
-
   }
 
   data() {
     return {
-      "postMashine": {
+      "currentPost": {
+        title: "hello world",
+        postId: "hello-world",
+        content: "First share, i share post . "
       }
     }
   }
 
   mounted() {
-    this.prepareComponent();
-  }
-
-  prepareComponent() {
-    console.log("My component loaded...")
-    // this.testRun()
+    console.info('Post component mounted.')
   }
 
   testRun () {
