@@ -38,11 +38,12 @@ return [
     | `'posts' => App\Post::class`
     */
     'resources' => [
+        'users' => \App\User::class,
+        'avatars' => \App\Avatar::class,
         'comments' => \App\Comment::class,
         'posts' => \App\Post::class,
         'sites' => \App\Site::class,
         'tags' => \App\Tag::class,
-        'users' => \App\User::class,
         'gameplays' => \App\Gameplay::class
     ],
 

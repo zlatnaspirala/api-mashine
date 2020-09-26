@@ -57,19 +57,32 @@
         <md-table-toolbar>
           <h2 class="md-title">Feed data:</h2>
         </md-table-toolbar>
-        <md-table-row :key="value" md-selectable="single"
+        <md-table-row :key="value.id" md-selectable="single"
             slot="md-table-row" :slot-scope="lastResponse.data"
             v-for="value in lastResponse.data">
-          <md-table-cell  md-label="VideoId" md-sort-by="VideoId" >
-              {{ value.id.kind }}
+          <md-table-cell  md-label="Title" md-sort-by="title" >
+              {{ value.attributes.title }}
           </md-table-cell>
-          <md-table-cell md-label="Title" md-sort-by="title" >
-              {{ value.title }}
+          <md-table-cell md-label="Content" md-sort-by="content" >
+              {{ value.attributes.content }}
           </md-table-cell>
           <md-table-cell md-label="VideoId" md-sort-by="videoId">
-            {{ value.id }}
+            {{ value.attributes['created-at'] }}
             </md-table-cell>
         </md-table-row >
+
+        <md-toolbar class="md-toolbar-feed" >
+              <md-button class="md-prioryty md-raised paginatorBtns" @click="navigateToFirst">
+                first
+              </md-button>
+              <md-button class="md-prioryty md-raised paginatorBtns" @click="navigateToNext">
+                next
+              </md-button>
+              <md-button class="md-prioryty md-raised paginatorBtns" @click="navigateToLast">
+                last
+              </md-button>
+        </md-toolbar>
+
       </md-table>
     </div>
 
@@ -83,10 +96,23 @@
   padding-bottom: 0%;
 }
 
-.md-toolbar {
+.md-toolbar-create-post {
   margin-bottom: 2%;
 }
+
+.md-toolbar-feed {
+  width: 100%;
+  flex-flow: nowrap;
+  margin-bottom: 0.5%;
+}
+
+.paginatorBtns {
+  flex-flow: initial;
+  width: -webkit-fill-available;
+}
+
 </style>
+
 
 <script lang="ts">
 
@@ -139,10 +165,6 @@ export default class postsComponent extends Vue {
     height: '76%'
   }
 
-  constructor() {
-    super()
-  }
-
   data() {
     return {
       currentPost: {
@@ -162,11 +184,57 @@ export default class postsComponent extends Vue {
   }
 
   /**
-   * @description Swithc between two main components
-   *  - CreateFormPost
-   *  - WallFormPosts
+   * @description Test avatar image route
+   * Request =>
+   *  GET /api/v1/avatars/1 HTTP/1.1
+   *  Accept: image/*
    */
 
+  private getMyAvatar() {
+
+    fetch('api/v1/avatars/1', {
+      method: 'GET',
+      headers: {
+        'Content-Type': '*',
+        'Accept': 'application/json, text/plain, */*',
+        'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1]
+      }
+    })
+    .then((response) =>{
+      return response.json()
+    } )
+    .then((data) => {
+      if (typeof data.errors !== 'undefined') {
+        console.error("Something wrong with posts feed initially request.")
+        return;
+      }
+
+      this.$data.lastResponse = data
+      console.log("this.$data.lastResponse => " + this.$data.lastResponse)
+    })
+
+  }
+
+  /**
+   * @description Navigate for table paginator.
+   */
+  private navigateToFirst() {
+    this.getPostsFeedData(this.$data.lastResponse.links.first)
+  }
+
+  private navigateToNext() {
+    this.getPostsFeedData(this.$data.lastResponse.links.next)
+  }
+
+  private navigateToLast() {
+    this.getPostsFeedData(this.$data.lastResponse.links.last)
+  }
+
+  /**
+   * @description Swithc between two main components
+   *  - CreateFormPost
+   *  - FeedFormPosts
+   */
   private hideCreateFormPost() {
 
     this.$data.postformVisibility = false
@@ -195,10 +263,12 @@ export default class postsComponent extends Vue {
     console.info('Post component mounted.')
 
     this.getPostsFeedData()
+    this.getMyAvatar()
+
   }
 
-   private created () {
-   }
+  private created () {
+  }
 
   getPostById(id: number) {
 
@@ -282,9 +352,15 @@ export default class postsComponent extends Vue {
 
   }
 
-  getPostsFeedData() {
+  getPostsFeedData(arg?) {
 
-    fetch('/api/v1/posts', {
+    var currentArg = '/api/v1/posts';
+
+    if (typeof arg !== 'undefined') {
+      currentArg = arg
+    }
+
+    fetch(currentArg, {
       method: 'GET',
       headers: {
         'Content-Type': '*',
@@ -296,13 +372,13 @@ export default class postsComponent extends Vue {
       return response.json()
     } )
     .then((data) => {
-      if (typeof data.errors === 'undefined') {
+      if (typeof data.errors !== 'undefined') {
         console.error("Something wrong with posts feed initially request.")
         return;
       }
 
-      
-      console.log(data)
+      this.$data.lastResponse = data
+      console.log("this.$data.lastResponse => " + this.$data.lastResponse)
     })
   }
 

@@ -20,6 +20,14 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        Schema::create('avatars', function (Blueprint $table) {
+            $table->increments('id');
+            $table->timestamps();
+            $table->string('path');
+            $table->string('media_type');
+            $table->unsignedInteger('user_id')->nullable();
+        });
     }
 
     /**
