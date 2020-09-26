@@ -1,82 +1,79 @@
 
 <template>
-<!-- @keyup.enter="execute()"    class="md-primary md-raised" -->
+  <div>
 
-<div>
+    <div :style="styleContent" v-show="postformVisibility">
 
-  <div :style="styleContent" v-show="postformVisibility">
+      <md-toolbar class="md-toolbar">
+        <h3 class="md-title">Create post</h3>
+      </md-toolbar>
+      <md-field class="md-content-options" :class="{'md-invalid': error.titleError}">
+        <label class="labelText" >Post title</label>
+        <md-input
+                v-on:change="titleChanged"
+                v-model="currentPost.title"
+                class="md-primary md-raised"
+                placeholder="Title: "
+                maxlength="70">
+        </md-input>
+        <span class="md-error"> {{ error.titleErrorMsg }} </span>
+      </md-field>
+      <md-field class="md-content-options" :class="{'md-invalid': error.postIdError}" >
+        <label class="labelText" >id post</label>
+        <md-input required
+                v-on:change="postIdChanged"
+                v-model="currentPost.postId"
+                class="md-primary md-raised"
+                placeholder="Uniq post id"
+                maxlength="100">
+        </md-input>
+        <span class="md-error"> {{ error.postIdErrorMsg }} </span>
+      </md-field>
+      <md-field class="md-content-options" :class="{'md-invalid': error.contentError}" >
+        <label class="labelText" >Content</label>
+        <md-textarea
+                v-on:change="contentChanged"
+                v-model="currentPost.content"
+                class="md-primary md-raised"
+                placeholder="CONTENT"
+                maxlength="200">
+        </md-textarea>
+        <span class="md-error"> {{ error.contentErrorMsg }} </span>
+      </md-field>
 
-    <md-toolbar class="md-toolbar">
-      <h3 class="md-title">Create post</h3>
-    </md-toolbar>
-    <md-field class="md-content-options" :class="{'md-invalid': error.titleError}">
-      <label class="labelText" >Post title</label>
-      <md-input
-              v-on:change="titleChanged"
-              v-model="currentPost.title"
-              class="md-primary md-raised"
-              placeholder="Title: "
-              maxlength="70">
-      </md-input>
-      <span class="md-error"> {{ error.titleErrorMsg }} </span>
-    </md-field>
-    <md-field class="md-content-options" :class="{'md-invalid': error.postIdError}" >
-      <label class="labelText" >id post</label>
-      <md-input required
-              v-on:change="postIdChanged"
-              v-model="currentPost.postId"
-              class="md-primary md-raised"
-              placeholder="Uniq post id"
-              maxlength="100">
-      </md-input>
-      <span class="md-error"> {{ error.postIdErrorMsg }} </span>
-    </md-field>
-    <md-field class="md-content-options" :class="{'md-invalid': error.contentError}" >
-      <label class="labelText" >Content</label>
-      <md-textarea
-              v-on:change="contentChanged"
-              v-model="currentPost.content"
-              class="md-primary md-raised"
-              placeholder="CONTENT"
-              maxlength="200">
-      </md-textarea>
-      <span class="md-error"> {{ error.contentErrorMsg }} </span>
-    </md-field>
+      <md-button class="md-prioryty md-raised" @click="createPost">
+        PUBLISH
+      </md-button>
 
-    <md-button class="md-prioryty md-raised" @click="createPost">
-      PUBLISH
-    </md-button>
+      <md-button class="md-prioryty md-raised" @click="hideCreateFormPost">
+        HIDE
+      </md-button>
 
-    <md-button class="md-prioryty md-raised" @click="hideCreateFormPost">
-      HIDE
-    </md-button>
-
-  </div>
-
-
-  <div :style="styleContent" v-show="feedformVisibility">
-
-    <md-table v-bind:style="styleTableObject" md-card v-show='tyfetchVisibility' >
-      <md-table-toolbar>
-        <h2 class="md-title">Feed data:</h2>
-      </md-table-toolbar>
-      <md-table-row :key="value" md-selectable="single"
-          slot="md-table-row" :slot-scope="lastResponse.data"
-          v-for="value in lastResponse.data">
-        <md-table-cell  md-label="VideoId" md-sort-by="VideoId" >
-            {{ value.id.kind }}
-        </md-table-cell>
-        <md-table-cell md-label="Title" md-sort-by="title" >
-                   {{ value.title }}
-        </md-table-cell>
-        <md-table-cell md-label="VideoId" md-sort-by="videoId">
-          {{ value.id }}
-          </md-table-cell>
-      </md-table-row >
-    </md-table>
     </div>
 
-</div>
+    <div :style="styleContent" v-show="feedformVisibility">
+
+      <md-table v-bind:style="styleTableObject" md-card >
+        <md-table-toolbar>
+          <h2 class="md-title">Feed data:</h2>
+        </md-table-toolbar>
+        <md-table-row :key="value" md-selectable="single"
+            slot="md-table-row" :slot-scope="lastResponse.data"
+            v-for="value in lastResponse.data">
+          <md-table-cell  md-label="VideoId" md-sort-by="VideoId" >
+              {{ value.id.kind }}
+          </md-table-cell>
+          <md-table-cell md-label="Title" md-sort-by="title" >
+              {{ value.title }}
+          </md-table-cell>
+          <md-table-cell md-label="VideoId" md-sort-by="videoId">
+            {{ value.id }}
+            </md-table-cell>
+        </md-table-row >
+      </md-table>
+    </div>
+
+  </div>
 
 </template>
 
@@ -117,7 +114,7 @@ import 'vue-material/dist/theme/default.css'
     mdField,
     mdContent,
     mdTextarea,
-    // mdToolbar
+    mdToolbar
   }
 })
 
@@ -127,6 +124,10 @@ export default class postsComponent extends Vue {
   private name = "posts-component"
   private postformVisibility: boolean = true
   private feedformVisibility: boolean = false
+
+  private lastResponse: any = {
+    data: []
+  }
 
   public styleContent = {
     padding: "2%",
@@ -190,11 +191,14 @@ export default class postsComponent extends Vue {
   /**
    * @description From here we can use DOM refs
    */
-  mounted() {
+  private mounted() {
     console.info('Post component mounted.')
 
     this.getPostsFeedData()
   }
+
+   private created () {
+   }
 
   getPostById(id: number) {
 
@@ -292,6 +296,12 @@ export default class postsComponent extends Vue {
       return response.json()
     } )
     .then((data) => {
+      if (typeof data.errors === 'undefined') {
+        console.error("Something wrong with posts feed initially request.")
+        return;
+      }
+
+      
       console.log(data)
     })
   }

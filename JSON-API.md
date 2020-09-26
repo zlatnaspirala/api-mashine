@@ -1,9 +1,6 @@
 
-# Project source => https://laravel-json-api.readthedocs.io/en/latest/
-# Laravel JSON API
-
-
-<code>
+## Project source => https://laravel-json-api.readthedocs.io/en/latest/
+## Laravel JSON API
 
 ## Theory of Operation
 Your application will have one (or many) APIs that conform to the JSON API spec. You define an API in your app via routes, while JSON API settings are configured in a config file for each API. If you have multiple APIs, each has a unique name.
@@ -25,4 +22,3 @@ In Laravel the phrase model is potentially confusing with Eloquent models. While
 
 So we decided to refer to PHP object instances that are converted to JSON API resources as records.
 
-</code>
