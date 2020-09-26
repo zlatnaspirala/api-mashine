@@ -16,7 +16,10 @@ use CloudCreativity\LaravelJsonApi\Routing\RouteRegistrar as Api;
 
 JsonApi::register('v1', ['namespace' => 'Api'], function (Api $api) {
 
-    $api->resource('avatars', ['controller' => true]);
+    $api->resource('avatars', [
+        'middleware' => 'json-api.auth:default',
+        'controller' => true
+    ]);
 
     $api->resource('comments', [
         'middleware' => 'json-api.auth:default',

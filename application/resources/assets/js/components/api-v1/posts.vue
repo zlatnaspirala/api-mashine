@@ -192,7 +192,7 @@ export default class postsComponent extends Vue {
 
   private getMyAvatar() {
 
-    fetch('api/v1/avatars/1', {
+    fetch('api/v1/avatars', {
       method: 'GET',
       headers: {
         'Content-Type': '*',
