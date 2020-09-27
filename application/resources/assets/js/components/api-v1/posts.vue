@@ -86,6 +86,21 @@
       </md-table>
     </div>
 
+    <form novalidate class="md-layout" @submit.prevent="validateImage">
+      <md-field>
+        <md-input type="file" @change="validateImage($event)" />
+      </md-field>
+    </form>
+
+      <form enctype="multipart/form-data" novalidate id="uploadForm" >
+        <h1>Upload images</h1>
+        <div class="dropbox">
+          <input type="file" name="uploadFieldName" @change="validateImage($event);"
+            accept="image/*" class="input-file">
+              Drag your file(s) here to begin<br> or click to browse
+        </div>
+      </form>
+
   </div>
 
 </template>
@@ -151,6 +166,8 @@ export default class postsComponent extends Vue {
   private postformVisibility: boolean = true
   private feedformVisibility: boolean = false
 
+  private myAvatar = "no  image";
+
   private lastResponse: any = {
     data: []
   }
@@ -188,7 +205,21 @@ export default class postsComponent extends Vue {
    * Request =>
    *  GET /api/v1/avatars/1 HTTP/1.1
    *  Accept: image/*
+   *
+   * Upload =>
+   *  POST /api/v1/avatars HTTP/1.1
+   *  Accept: application/vnd.api+json
+   *  Content-Type: mutlipart/form-data
    */
+
+  validateImage(event) {
+
+    console.log("validateImage .. ", event.target)
+
+    this.uploadMyAvatar (event.target.files[0])
+
+
+  }
 
   private getMyAvatar() {
 
@@ -199,6 +230,50 @@ export default class postsComponent extends Vue {
         'Accept': 'application/json, text/plain, */*',
         'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1]
       }
+    })
+    .then((response) =>{
+      return response.json()
+    } )
+    .then((data) => {
+      if (typeof data.errors !== 'undefined') {
+        console.error("Something wrong with posts feed initially request.")
+        return;
+      }
+
+      this.$data.lastResponse = data
+      console.log("this.$data.lastResponse => " + this.$data.lastResponse)
+    })
+
+  }
+
+  private uploadMyAvatar(fl) {
+
+    console.log("WHAT IS ")
+    console.log("WHAT IS ", fl)
+
+    var f = document.getElementById("uploadForm") as HTMLFormElement
+    var formData = new FormData(f)
+    formData.append("avatar", fl)
+     formData.append("type", "avatars")
+
+    var mydata =  {
+      "data" : {
+          "type": "avatars",
+          "attributes": {
+              "media_type": 'image/jpeg',
+              "avatar": fl
+          }
+        }
+     };
+
+    fetch('api/v1/avatars', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json',
+        'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1]
+      },
+      body: JSON.stringify(mydata)
     })
     .then((response) =>{
       return response.json()
@@ -245,15 +320,15 @@ export default class postsComponent extends Vue {
   /**
    * @description Clear error style from edited field.
    */
-  titleChanged () {
+  titleChanged() {
     this.$data.error.titleError = false
   }
 
-  postIdChanged () {
+  postIdChanged() {
     this.$data.error.postIdError = false
   }
 
-  contentChanged () {
+  contentChanged() {
     this.$data.error.contentError = false
   }
   /**
@@ -267,7 +342,7 @@ export default class postsComponent extends Vue {
 
   }
 
-  private created () {
+  private created() {
   }
 
   getPostById(id: number) {
