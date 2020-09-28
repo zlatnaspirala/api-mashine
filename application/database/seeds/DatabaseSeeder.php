@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(PostSeeder::class);
         $this->call(GameplaySeeder::class);
+        $this->call(TestAvatarSeeder::class);
 
     }
 }

@@ -43,5 +43,8 @@ class Apimashine extends Command
         $systemInfo = new Systeminfo();
         $rez = $systemInfo->serverOSInfo();
         $this->comment($rez);
+
+        // $this->call('generate:randomstring');
+
     }
 }

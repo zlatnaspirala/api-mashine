@@ -65,6 +65,10 @@ Navigate to the root folder application/
 For Server part:
 ```s
 php artisan migrate:fresh --seed
+
+composer dump-autoload
+
+".\vendor\bin\upgrade-carbon"
 ```
 
 For Web client:

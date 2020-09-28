@@ -95,11 +95,15 @@
       <form enctype="multipart/form-data" novalidate id="uploadForm" >
         <h1>Upload images</h1>
         <div class="dropbox">
-          <input type="file" name="uploadFieldName" @change="validateImage($event);"
+          <input type="file" name="file" @change="validateImage($event);"
             accept="image/*" class="input-file">
               Drag your file(s) here to begin<br> or click to browse
         </div>
       </form>
+
+      <md-button class="md-prioryty md-raised paginatorBtns" @click="getMyAvatar">
+        GET AVATAR 1
+      </md-button>
 
   </div>
 
@@ -163,6 +167,8 @@ import 'vue-material/dist/theme/default.css'
 export default class postsComponent extends Vue {
 
   private name = "posts-component"
+
+  private ATOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjUxMjMxOWFjYmM3OTExZmNiOGE1Y2FjN2Q3MTJlMzlmMGExNGVmNDgyNmY0MjRkMmMyZGY1YWE5NjlhZDRkZjYxN2FjNjUwYjEyNjFiOTgzIn0.eyJhdWQiOiIxIiwianRpIjoiNTEyMzE5YWNiYzc5MTFmY2I4YTVjYWM3ZDcxMmUzOWYwYTE0ZWY0ODI2ZjQyNGQyYzJkZjVhYTk2OWFkNGRmNjE3YWM2NTBiMTI2MWI5ODMiLCJpYXQiOjE2MDEyODcwNzEsIm5iZiI6MTYwMTI4NzA3MSwiZXhwIjoxNjMyODIzMDcxLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.OR8q5m4ld7xziLUF0j6_riVFmfSFapVhPCS0V2ZTBrCWpxF6Ar-EAHiJFPM_UAMJLbSwH-Ae_LwuFVbFmSLp7nbz9sjGQizIZN3wTzCyaspb31ksGZJ_1waM0qmQ7O6-kCZB0Utn7f5j7aQzc_nwrXJMmg0T2b_83hTDdLX6GblRn7GJZ3yoYhpVxTl0qpdYak5bIW24MwcLICCcaBw07K1krX2Z_z5NG70xE6sGRgpvijMazWnIAEz0hlY1V62nS9HyggBD9hil60MgYv5L4YWvuJerU3n0AlYtl5rfNAo_3PIsgvpaHzDfuNahV-AubLjNfC7PPegGAsCTRV-jeK42fU0Ke51MW06xBoZxkpjA8tnZR-OAtZX-D-wM7UhFUtN3PNNvbOQAc0VPzNM_1tOGZbwxEX31jRgacaD_NK7nnBYdwxiRLQJvqtJixbA0OMBuqac1741RHtcoORIzHQZ6a5mnhXtfyiRaIMSVn8BzF7dxAi0N-dwBygLFygXkXsXlGFyVVBM0cuFbBLh3KkfaxUpevVEqP3VXSVEtCR81i5RRq3Z4md0wd88m2-vxP_f1YbaUQb1JaULLiZQHLl1_j718keeyhc8_E3Cu51P0g27N900DJwfIWmR-mMYNckIKLmfA94ZDYHFyMh9eMIT7wHkCCtQuPBZX9mSfoJc"
   private postformVisibility: boolean = true
   private feedformVisibility: boolean = false
 
@@ -217,17 +223,18 @@ export default class postsComponent extends Vue {
     console.log("validateImage .. ", event.target)
 
     this.uploadMyAvatar (event.target.files[0])
+    // this.uploadMyAvatar (event.target)
 
 
   }
 
   private getMyAvatar() {
 
-    fetch('api/v1/avatars', {
+    fetch('api/v1/avatars/1', {
       method: 'GET',
       headers: {
         'Content-Type': '*',
-        'Accept': 'application/json, text/plain, */*',
+        'Accept': 'image/*',
         'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1]
       }
     })
@@ -252,28 +259,41 @@ export default class postsComponent extends Vue {
     console.log("WHAT IS ", fl)
 
     var f = document.getElementById("uploadForm") as HTMLFormElement
-    var formData = new FormData(f)
-    formData.append("avatar", fl)
-     formData.append("type", "avatars")
+
+    var formData = new FormData()
+    formData.append("file", fl)
+
+    console.log(" AVATAR eha is f ", f)
+
+    // formData.append("avatar", fl)
+    // formData.append("avatar", null)
 
     var mydata =  {
       "data" : {
           "type": "avatars",
+          "avatar": "test",
           "attributes": {
-              "media_type": 'image/jpeg',
-              "avatar": fl
+              "media_type": 'image/jpg',
           }
-        }
-     };
+        },
+     }
+
+
+    //    var mydata =  { "avatar": fl };
 
     fetch('api/v1/avatars', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/vnd.api+json',
+        // 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW', // boundary=* WebKitFormBoundary3pvkBL1AgVlyftxh
+        // 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary*', // boundary=* WebKitFormBoundary3pvkBL1AgVlyftxh
+        // 'Content-Type': 'multipart/form-data;boundary=',
+         // 'Content-Length': '1',
+        'Content-Type': 'multipart/form-data;boundary',
         'Accept': 'application/vnd.api+json',
-        'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1]
+        'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1],
+        'Authorization': 'Bearer ' + this.ATOKEN,
       },
-      body: JSON.stringify(mydata)
+      body: formData // formData // JSON.stringify(formData)// formData //
     })
     .then((response) =>{
       return response.json()
@@ -287,6 +307,8 @@ export default class postsComponent extends Vue {
       this.$data.lastResponse = data
       console.log("this.$data.lastResponse => " + this.$data.lastResponse)
     })
+
+
 
   }
 
@@ -335,6 +357,7 @@ export default class postsComponent extends Vue {
    * @description From here we can use DOM refs
    */
   private mounted() {
+
     console.info('Post component mounted.')
 
     this.getPostsFeedData()
@@ -389,8 +412,8 @@ export default class postsComponent extends Vue {
       headers: {
           'Content-Type': 'application/vnd.api+json',
           'Accept': '*/*',
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjNjZmMwZmYzMjdjMWQwMzhkNjA5YmJjYmViM2E5YTRhMzI0ZWI1NzI2YmNiYWJmNTk4OWExNGI0NDJhM2FlNGU2MmY2OGQ1ZTM2ZGI1OWE3In0.eyJhdWQiOiIxIiwianRpIjoiM2NmYzBmZjMyN2MxZDAzOGQ2MDliYmNiZWIzYTlhNGEzMjRlYjU3MjZiY2JhYmY1OTg5YTE0YjQ0MmEzYWU0ZTYyZjY4ZDVlMzZkYjU5YTciLCJpYXQiOjE2MDA5NTc5NjgsIm5iZiI6MTYwMDk1Nzk2OCwiZXhwIjoxNjMyNDkzOTY4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.PYXDgFt8s2Izrnc-Lin5c4PaOjPAV3sYBToe9s0sDqY8OMY4MTDA2Vvu0IpaJLX26XPpW3-DK1pBAzPU4vywQK9kM6i4XM28UZvexfj1fvaO_17qMMW3hn3kXDTMKPPPCj7P98DoESk7mSEucDfr_lUcUmNw48jrATfehSS5DojSakrZhyBkOmo1LJL9jBS6eQh6l3eAg3gPNweE8y0i4SEXchf94eV6vGqQhbH9pjNm4qBs-4KVLYoalSaTLVNqna3JqI2lpSklcciEaAwDCZ-3tAxWNkLFwjghKEDIq46I5zueljGIFnMfGo2eCyrOC1KFTcqPuYxAgOW2Xu_0cwugHI1E-8EtE177XMVUIpiX0ReBCcErS7MEbUZdMMmm4gV06XuSfefUrrWjW1oPfC8rbJLKD1SeDoAsudJ4vBuM3kMdys39gIIbEmfqjBu_yv3NMjPWAhjenW6-DghrOko61_nZ3TlWTqClU2h9TILU9pIBzoJBcUkQ9oYdSqPquzoO5qHWXNrA2VbwnkVP-wWsYZEGUrex24_rHzHH8JvRzDovl2_R4vfnRC4JHaFtyFOVKXtAHy_WubSd4g-yIVH9afRu-DhFnaw1Lm5rdm1LaNTKOaefDT68ONS7A_lkZcUColh2L54ASzG-rmN7d2B1oWbty50k_8uE_3pTrhs',
-            'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1]
+          'Authorization': 'Bearer ' + this.ATOKEN,
+          'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1]
       },
       body: JSON.stringify(mydata)
     })
