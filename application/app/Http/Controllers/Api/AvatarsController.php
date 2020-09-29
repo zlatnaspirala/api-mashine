@@ -6,7 +6,7 @@ use CloudCreativity\LaravelJsonApi\Http\Controllers\JsonApiController;
 use App\Avatar;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-
+use finfo;
 
 class AvatarsController extends JsonApiController
 {
@@ -22,14 +22,23 @@ class AvatarsController extends JsonApiController
      */
     protected function reading(Avatar $avatar): ?StreamedResponse
     {
+
+       // return Storage::disk('public')->download($avatar->path);
+
         if ($this->willNotEncode($avatar->media_type)) {
+            \Log::warning("DEBUG >>>>>>>>WIL NOT ENCODE>>>>>>>>>> " . $avatar->path);
             return null;
         }
 
-        \Log::warning("DEBUG >>>>>>>>>>>>>>>>>> " . $avatar->path);
+         $files = Storage::files('avatar');
+         // \Log::warning("DEBUG >>>>>>>>files>>>>>>>>>> " . $files);
+
+        \Log::warning("DEBUG >>>>>>>>reading>>>>>>>>>> " . $avatar->path);
 
         abort_unless(
-            Storage::disk('local')->exists($avatar->path),
+
+           // Storage::disk('local')->exists('public/avatar/avatar.jpg'),
+             Storage::disk('local')->exists($avatar->path),
             404,
             'The image file does not exist.'
         );

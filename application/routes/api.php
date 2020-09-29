@@ -24,7 +24,7 @@ JsonApi::register('v1')->defaultContentNegotiator('json')->routes(function ($api
 
 JsonApi::register('v1', ['namespace' => 'Api'], function (Api $api) {
 
-  //     $api->resource('avatars')->contentNegotiator('custom');
+       // $api->resource('avatars')->contentNegotiator('custom');
 
       $api->resource('avatars', [
         'middleware' => 'json-api.auth:default',

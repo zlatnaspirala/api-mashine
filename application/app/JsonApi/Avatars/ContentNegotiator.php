@@ -6,7 +6,9 @@ use App\Avatar;
 use App\JsonApi\FileDecoder;
 use CloudCreativity\LaravelJsonApi\Codec\EncodingList;
 use CloudCreativity\LaravelJsonApi\Codec\Decoding;
+use CloudCreativity\LaravelJsonApi\Codec\DecodingList;
 use CloudCreativity\LaravelJsonApi\Http\ContentNegotiator as BaseContentNegotiator;
+//use App\JsonApi\DefaultContentNegotiator;
 
 class ContentNegotiator extends BaseContentNegotiator
 {
@@ -25,7 +27,7 @@ class ContentNegotiator extends BaseContentNegotiator
      * @var array
      */
     protected $encoding = [
-       'image/jpg',
+       'image/jpeg',
        'image/png'
     ];
 
@@ -56,19 +58,21 @@ class ContentNegotiator extends BaseContentNegotiator
         'multipart/form-data; boundary=*' => FileDecoder::class,
     ];
 
-        protected function decodingsForResource(?Avatar $avatar): DecodingList
+
+    protected function decodingsForResource(?Avatar $avatar): DecodingList
     {
 
          // $avatar
         //  $decoder = new MultipartDecoder();
          $decoder = new FileDecoder();
 
-          \Log::warning("WHAT IS  avatar " . $avatar);
+          $avatar = null;
+          \Log::warning("WHAT IS  avatar ??? " . $avatar);
 
         return $this
-            ->decodingMediaTypes();
-            // ->when(is_null($avatar), Decoding::create('multipart/form-data', new FileDecoder()));
-        //    ->when(is_null($avatar), Decoding::create('multipart/form-data; boundary=*',new FileDecoder()));
+            ->decodingMediaTypes()
+            ->when(is_null($avatar), Decoding::create('multipart/form-data', new FileDecoder()))
+            ->when(is_null($avatar), Decoding::create('multipart/form-data; boundary=*',new FileDecoder()));
     }
 
 }

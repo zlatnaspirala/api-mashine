@@ -114,7 +114,7 @@ return [
     */
     'encoding' => [
         'application/vnd.api+json' => JSON_PRESERVE_ZERO_FRACTION,
-        'application/vnd.api+json',
+        'image/jpeg',
     ],
 
     /*
@@ -137,7 +137,7 @@ return [
     */
     'decoding' => [
         'application/vnd.api+json',
-        'application/json',
+        'image/jpeg',
     ],
 
     /*

@@ -41,7 +41,7 @@ class Adapter extends AbstractAdapter
     public function create(array $document, EncodingParametersInterface $parameters)
     {
 
-        Log::warning("What is the EncodingParametersInterface $parameters ");
+        Log::warning("What is the EncodingParametersInterface " . request());
 
         $path = request()->file('avatar')->store('avatars');
 

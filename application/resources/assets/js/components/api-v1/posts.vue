@@ -238,14 +238,16 @@ export default class postsComponent extends Vue {
       method: 'GET',
       headers: {
         'Content-Type': '*',
-        'Accept': 'image/png',
+        'Accept': 'image/jpeg',
         'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1]
       }
     })
     .then((response) =>{
-      return response.json()
+      // return response.json()
+      console.log('GOOOOD', response)
     } )
-    .then((data) => {
+    /* .then((data) => {
+
       if (typeof data.errors !== 'undefined') {
         console.error("Something wrong with posts feed initially request.")
         return;
@@ -254,7 +256,7 @@ export default class postsComponent extends Vue {
       // this.$data.lastResponse = data
       // console.log("this.$data.lastResponse => " + this.$data.lastResponse)
     })
-
+*/
   }
 
 
@@ -291,7 +293,7 @@ export default class postsComponent extends Vue {
     var f = document.getElementById("uploadForm") as HTMLFormElement
 
     var formData = new FormData()
-    formData.append("file", fl)
+    formData.append("avatar", fl)
 
     console.log(" AVATAR eha is f ", f)
 
@@ -316,9 +318,7 @@ export default class postsComponent extends Vue {
       headers: {
         // 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW', // boundary=* WebKitFormBoundary3pvkBL1AgVlyftxh
         // 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary*', // boundary=* WebKitFormBoundary3pvkBL1AgVlyftxh
-        // 'Content-Type': 'multipart/form-data;boundary=',
-         // 'Content-Length': '1',
-        'Content-Type': 'multipart/form-data;boundary',
+        'Content-Type': 'multipart/form-data;boundary=*',
         'Accept': 'application/vnd.api+json',
         'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1],
         'Authorization': 'Bearer ' + this.ATOKEN,
