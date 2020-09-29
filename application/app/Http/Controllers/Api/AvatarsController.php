@@ -7,8 +7,14 @@ use App\Avatar;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
+
 class AvatarsController extends JsonApiController
 {
+
+      public function created(Avatar $post)
+    {
+       //   event(new GameplayCreated($post));
+    }
 
     /**
      * @param Avatar $avatar
@@ -20,6 +26,8 @@ class AvatarsController extends JsonApiController
             return null;
         }
 
+        \Log::warning("DEBUG >>>>>>>>>>>>>>>>>> " . $avatar->path);
+
         abort_unless(
             Storage::disk('local')->exists($avatar->path),
             404,
@@ -28,4 +36,12 @@ class AvatarsController extends JsonApiController
 
         return Storage::disk('local')->download($avatar->path);
     }
+
+    /*
+     public function index()
+    {
+        // return view('home');
+    }
+    */
+
 }

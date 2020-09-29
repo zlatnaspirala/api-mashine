@@ -105,6 +105,10 @@
         GET AVATAR 1
       </md-button>
 
+      <md-button class="md-prioryty md-raised paginatorBtns" @click="getMyAvatars">
+        GET AVATARS
+      </md-button>
+
   </div>
 
 </template>
@@ -234,7 +238,7 @@ export default class postsComponent extends Vue {
       method: 'GET',
       headers: {
         'Content-Type': '*',
-        'Accept': 'image/*',
+        'Accept': 'image/png',
         'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1]
       }
     })
@@ -247,8 +251,34 @@ export default class postsComponent extends Vue {
         return;
       }
 
-      this.$data.lastResponse = data
-      console.log("this.$data.lastResponse => " + this.$data.lastResponse)
+      // this.$data.lastResponse = data
+      // console.log("this.$data.lastResponse => " + this.$data.lastResponse)
+    })
+
+  }
+
+
+  private getMyAvatars() {
+
+    fetch('api/v1/avatars', {
+      method: 'GET',
+      headers: {
+        'Content-Type': '*',
+        'Accept': '*/*',
+        'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1]
+      }
+    })
+    .then((response) =>{
+      return response.json()
+    } )
+    .then((data) => {
+      if (typeof data.errors !== 'undefined') {
+        console.error("Something wrong with posts feed initially request.")
+        return;
+      }
+
+      // this.$data.lastResponse = data
+      // console.log("this.$data.lastResponse => " + this.$data.lastResponse)
     })
 
   }

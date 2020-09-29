@@ -18,8 +18,6 @@ $factory->define(App\User::class, function (Faker $faker) {
 /** Avatar - user photo */
 $factory->define(App\Avatar::class, function (Faker $faker) {
 
-   Log::warning(" >>>>>>>>>>>>>>>>>> TEST ");
-
     return [
         'path' => 'avatars/' . Str::random(6) . '.jpg',
         'media_type' => 'image/jpeg',
@@ -27,6 +25,7 @@ $factory->define(App\Avatar::class, function (Faker $faker) {
             return factory(App\User::class)->create()->getKey();
         },
     ];
+
 });
 
 /** Post */

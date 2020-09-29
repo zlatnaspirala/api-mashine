@@ -1,46 +1,34 @@
 <?php
-/**
- * Copyright 2020 Cloud Creativity Limited
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 namespace App\JsonApi\Avatars;
 
+use App\Avatar;
 use App\JsonApi\FileDecoder;
 use CloudCreativity\LaravelJsonApi\Codec\EncodingList;
-use CloudCreativity\LaravelJsonApi\Http\ContentNegotiator as BaseContentNegotiator;
-use App\Avatar;
 use CloudCreativity\LaravelJsonApi\Codec\Decoding;
+use CloudCreativity\LaravelJsonApi\Http\ContentNegotiator as BaseContentNegotiator;
 
 class ContentNegotiator extends BaseContentNegotiator
 {
 
     /**
+     * Supported encoding media types.
+     *
+     * Configure supported encoding media types for this negotiator here.
+     * These are merged with the encoding media types from your API. The format
+     * of this array is identical to the format in your API config.
+     *
+     * If you need to programmatically work out encoding media types, or need
+     * to support media types for specific actions, refer to the Content
+     * Negotiation documentation for which methods to overload.
+     *
      * @var array
      */
-/*
-    protected $decoding = [
-        'multipart/form-data' => FileDecoder::class,
-        'multipart/form-data; boundary=*' => FileDecoder::class,
+    protected $encoding = [
+       'image/jpg',
+       'image/png'
     ];
-*/
 
-
-    /**
-     * @param Avatar|null $avatar
-     * @return EncodingList
-     */
     protected function encodingsForOne(?Avatar $avatar): EncodingList
     {
         $mediaType = optional($avatar)->media_type;
@@ -51,11 +39,24 @@ class ContentNegotiator extends BaseContentNegotiator
     }
 
     /**
-     * @param Avatar|null $avatar
-     * @return DecodingList
+     * Supported decoding media types.
+     *
+     * Configure supported decoding media types for this negotiator here.
+     * These are merged with the decoding media types from your API. The format
+     * of this array is identical to the format in your API config.
+     *
+     * If you need to programmatically work out decoding media types, or need
+     * to support media types for specific actions, refer to the Content
+     * Negotiation documentation for which methods to overload.
+     *
+     * @var array
      */
+    protected $decoding = [
+        'multipart/form-data' => FileDecoder::class,
+        'multipart/form-data; boundary=*' => FileDecoder::class,
+    ];
 
-    protected function decodingsForResource(?Avatar $avatar): DecodingList
+        protected function decodingsForResource(?Avatar $avatar): DecodingList
     {
 
          // $avatar
