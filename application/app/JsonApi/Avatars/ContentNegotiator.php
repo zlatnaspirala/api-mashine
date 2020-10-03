@@ -62,17 +62,14 @@ class ContentNegotiator extends BaseContentNegotiator
     protected function decodingsForResource(?Avatar $avatar): DecodingList
     {
 
-         // $avatar
         //  $decoder = new MultipartDecoder();
-         $decoder = new FileDecoder();
-
-          $avatar = null;
-          \Log::warning("WHAT IS  avatar ??? " . $avatar);
+        $decoder = new FileDecoder();
+        \Log::warning("decodingsForResource ??? " . $avatar);
 
         return $this
             ->decodingMediaTypes()
-            ->when(is_null($avatar), Decoding::create('multipart/form-data', new FileDecoder()))
-            ->when(is_null($avatar), Decoding::create('multipart/form-data; boundary=*',new FileDecoder()));
+            ->when(is_null($avatar), Decoding::create('multipart/form-data', $decoder))
+            ->when(is_null($avatar), Decoding::create('multipart/form-data; boundary=*', $decoder));
     }
 
 }

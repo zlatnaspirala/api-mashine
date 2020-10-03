@@ -17,7 +17,7 @@ class AvatarPolicy
      * @param  \App\Avatar  $post
      * @return mixed
      */
-    public function view(User $user, Gameplay $post)
+    public function view(User $user, Avatar $post)
     {
         return true;
     }
@@ -40,7 +40,7 @@ class AvatarPolicy
      * @param  \App\Avatar  $post
      * @return mixed
      */
-    public function update(User $user, Gameplay $post)
+    public function update(User $user, Avatar $post)
     {
         return $user->is($post->author);
     }
@@ -52,7 +52,7 @@ class AvatarPolicy
      * @param  \App\Avatar  $post
      * @return mixed
      */
-    public function delete(User $user, Gameplay $post)
+    public function delete(User $user, Avatar $post)
     {
         return $this->update($user, $post);
     }

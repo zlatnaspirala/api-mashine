@@ -293,7 +293,8 @@ export default class postsComponent extends Vue {
     var f = document.getElementById("uploadForm") as HTMLFormElement
 
     var formData = new FormData()
-    formData.append("avatar", fl)
+    formData.append('avatar', fl, fl.name);
+    // formData.append("avatar", fl)
 
     console.log(" AVATAR eha is f ", f)
 

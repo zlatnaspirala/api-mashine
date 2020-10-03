@@ -23,7 +23,7 @@ class AuthServiceProvider extends ServiceProvider
         Post::class => Policies\PostPolicy::class,
         User::class => Policies\UserPolicy::class,
         Gameplay::class => Policies\GameplayPolicy::class,
-        Avatar::class => Policies\Avatar::class
+        Avatar::class => Policies\AvatarPolicy::class
     ];
 
     /**

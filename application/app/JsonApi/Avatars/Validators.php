@@ -44,9 +44,15 @@ class Validators extends AbstractValidators
      */
     public function create(array $document): ValidatorInterface
     {
+
+      \Log::info(print_r($document));
+
+
+      \Log::warning(" create(array document): ValidatorInterface ??? ");
+
         return $this->createValidator(
-            $document,
-            ['avatar' => 'required']
+            $document, []
+            // ['avatar' => 'required']
         );
     }
 

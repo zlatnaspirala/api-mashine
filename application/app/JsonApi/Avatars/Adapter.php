@@ -41,7 +41,7 @@ class Adapter extends AbstractAdapter
     public function create(array $document, EncodingParametersInterface $parameters)
     {
 
-        Log::warning("What is the EncodingParametersInterface " . request());
+        \Log::warning("NEVER ENTER HERE ??");
 
         $path = request()->file('avatar')->store('avatars');
 
@@ -64,6 +64,9 @@ class Adapter extends AbstractAdapter
      */
     public function update($record, array $document, EncodingParametersInterface $parameters)
     {
+
+        \Log::warning("  public function update??? ");
+
         if ($this->didDecode('application/vnd.api+json')) {
             return parent::update($record, $document, $parameters);
         }
@@ -88,6 +91,7 @@ class Adapter extends AbstractAdapter
      */
     protected function creating(Avatar $avatar): void
     {
+            \Log::warning("NEVER ENTER HERE 2??");
         $avatar->user()->associate(Auth::user());
     }
 
