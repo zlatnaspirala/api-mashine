@@ -72,24 +72,8 @@ Authorization: Bearer <api_token>
 }
 ```
 
-## Eloquent vs Not-Eloquent
-
-This package can handle both Eloquent and non-Eloquent records. You get a lot more functionality out of the box if
-you are using Eloquent, but it's possible to integrate non-Eloquent records as needed.
-
-This demo includes the following JSON-API resources:
-
-| Resource | Record | Eloquent? |
-| --- | --- | --- |
-| comments | App\Comment | Yes |
-| posts | App\Post | Yes |
-| sites | App\Site | No |
-| tags | App\Tag | Yes |
-| users | App\User | Yes |
-
 ## Software architecture
 
-<pre>
 ```
  +---------------------------------------------------------------------------------+
  |                                                                                 |
@@ -131,6 +115,22 @@ This demo includes the following JSON-API resources:
  +---------------------------------------------------------------------------------+
 ```
 
+## Eloquent vs Not-Eloquent
+
+This package can handle both Eloquent and non-Eloquent records. You get a lot more functionality out of the box if
+you are using Eloquent, but it's possible to integrate non-Eloquent records as needed.
+
+This demo includes the following JSON-API resources:
+
+| Resource | Record | Eloquent? |
+| --- | --- | --- |
+| comments | App\Comment | Yes |
+| posts | App\Post | Yes |
+| sites | App\Site | No |
+| tags | App\Tag | Yes |
+| users | App\User | Yes |
+
+<pre>
 More about client - server relations:
 
 +------------------------------------------------------------------------------------------------+
