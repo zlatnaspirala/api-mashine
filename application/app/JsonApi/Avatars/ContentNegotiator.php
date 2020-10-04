@@ -8,7 +8,6 @@ use CloudCreativity\LaravelJsonApi\Codec\EncodingList;
 use CloudCreativity\LaravelJsonApi\Codec\Decoding;
 use CloudCreativity\LaravelJsonApi\Codec\DecodingList;
 use CloudCreativity\LaravelJsonApi\Http\ContentNegotiator as BaseContentNegotiator;
-//use App\JsonApi\DefaultContentNegotiator;
 
 class ContentNegotiator extends BaseContentNegotiator
 {
@@ -64,7 +63,7 @@ class ContentNegotiator extends BaseContentNegotiator
 
         //  $decoder = new MultipartDecoder();
         $decoder = new FileDecoder();
-        \Log::warning("decodingsForResource ??? " . $avatar);
+        \Log::warning("decodingsForResource ?decoder?? ");
 
         return $this
             ->decodingMediaTypes()

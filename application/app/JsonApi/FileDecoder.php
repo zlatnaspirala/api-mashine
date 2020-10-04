@@ -28,6 +28,10 @@ class FileDecoder implements DecoderInterface
      */
     public function decode($request): array
     {
+
+        if ($request->hasFile('avatar')) {
+            \Log::warning("I detect AVATAR ");
+        }
         return $request->allFiles();
     }
 }

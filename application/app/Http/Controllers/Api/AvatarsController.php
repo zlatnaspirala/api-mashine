@@ -13,13 +13,13 @@ class AvatarsController extends JsonApiController
 
     protected function creating ($post) {
       //
-        // \Log::info(print_r($document, true));
-          \Log::info("TEST   public function Avatar (Avatar post) AvatarsController{ ");
+          // \Log::info(print_r($post, true));
+          \Log::info(" creating AvatarsController{ ");
     }
 
       protected function created(Avatar $post)
     {
-        \Log::info("TEST   public function created (Avatar post)AvatarsController { ");
+      //   \Log::info("TEST   public function created (Avatar post)AvatarsController { ");
        //   event(new GameplayCreated($post));
     }
 
@@ -40,12 +40,11 @@ class AvatarsController extends JsonApiController
     {
 
         if ($this->willNotEncode($avatar->media_type)) {
-            // \Log::warning("DEBUG >>>>>>>>WIL NOT ENCODE>>>>>>>>>> " . $avatar->path);
             return null;
         }
 
          $files = Storage::files('avatar');
-         \Log::warning("DEBUG >>>>>>>>reading>>>>>>>>>> " . $avatar->path);
+         \Log::warning(">>>>>>>>reading avatar->path >>>>>>>>>> " . $avatar->path);
 
         abort_unless(
             Storage::disk('local')->exists($avatar->path),

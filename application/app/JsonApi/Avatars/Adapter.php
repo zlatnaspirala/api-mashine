@@ -41,8 +41,11 @@ class Adapter extends AbstractAdapter
     public function create(array $document, EncodingParametersInterface $parameters)
     {
 
-        \Log::warning("NEVER ENTER HERE ??");
+        if (request()->hasFile('avatar')) {
+                \Log::info(" GOOOOOODDDDD avatar  ");
+        }
 
+         // try catch
         $path = request()->file('avatar')->store('avatars');
 
         $data = [

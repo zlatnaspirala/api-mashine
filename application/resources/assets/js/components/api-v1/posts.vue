@@ -93,12 +93,9 @@
     </form>
 
       <form enctype="multipart/form-data" novalidate id="uploadForm" >
-        <h1>Upload images</h1>
-        <div class="dropbox">
-          <input type="file" name="file" @change="validateImage($event);"
+                      <input type="file" name="avatar" @change="validateImage($event);"
             accept="image/*" class="input-file">
-              Drag your file(s) here to begin<br> or click to browse
-        </div>
+              Drag your image file here to begin upload.
       </form>
 
       <md-button class="md-prioryty md-raised paginatorBtns" @click="getMyAvatar">
@@ -152,6 +149,12 @@ import VueMaterial from 'vue-material'
 
 Vue.use(VueMaterial)
 
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+
+Vue.use(VueAxios, axios)
+
+
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 
@@ -172,7 +175,7 @@ export default class postsComponent extends Vue {
 
   private name = "posts-component"
 
-  private ATOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjUxMjMxOWFjYmM3OTExZmNiOGE1Y2FjN2Q3MTJlMzlmMGExNGVmNDgyNmY0MjRkMmMyZGY1YWE5NjlhZDRkZjYxN2FjNjUwYjEyNjFiOTgzIn0.eyJhdWQiOiIxIiwianRpIjoiNTEyMzE5YWNiYzc5MTFmY2I4YTVjYWM3ZDcxMmUzOWYwYTE0ZWY0ODI2ZjQyNGQyYzJkZjVhYTk2OWFkNGRmNjE3YWM2NTBiMTI2MWI5ODMiLCJpYXQiOjE2MDEyODcwNzEsIm5iZiI6MTYwMTI4NzA3MSwiZXhwIjoxNjMyODIzMDcxLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.OR8q5m4ld7xziLUF0j6_riVFmfSFapVhPCS0V2ZTBrCWpxF6Ar-EAHiJFPM_UAMJLbSwH-Ae_LwuFVbFmSLp7nbz9sjGQizIZN3wTzCyaspb31ksGZJ_1waM0qmQ7O6-kCZB0Utn7f5j7aQzc_nwrXJMmg0T2b_83hTDdLX6GblRn7GJZ3yoYhpVxTl0qpdYak5bIW24MwcLICCcaBw07K1krX2Z_z5NG70xE6sGRgpvijMazWnIAEz0hlY1V62nS9HyggBD9hil60MgYv5L4YWvuJerU3n0AlYtl5rfNAo_3PIsgvpaHzDfuNahV-AubLjNfC7PPegGAsCTRV-jeK42fU0Ke51MW06xBoZxkpjA8tnZR-OAtZX-D-wM7UhFUtN3PNNvbOQAc0VPzNM_1tOGZbwxEX31jRgacaD_NK7nnBYdwxiRLQJvqtJixbA0OMBuqac1741RHtcoORIzHQZ6a5mnhXtfyiRaIMSVn8BzF7dxAi0N-dwBygLFygXkXsXlGFyVVBM0cuFbBLh3KkfaxUpevVEqP3VXSVEtCR81i5RRq3Z4md0wd88m2-vxP_f1YbaUQb1JaULLiZQHLl1_j718keeyhc8_E3Cu51P0g27N900DJwfIWmR-mMYNckIKLmfA94ZDYHFyMh9eMIT7wHkCCtQuPBZX9mSfoJc"
+  private ATOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImM1MmE5NmU4NTI0NDE1ZTJjN2E5MWE1YTEyMzI5NTFmZjVhMzYzN2FlNGU0NDMyYzM1YjkyMDM5NGRhNzU5YTEyM2E3YjNiNWJmNThlZjJlIn0.eyJhdWQiOiIxIiwianRpIjoiYzUyYTk2ZTg1MjQ0MTVlMmM3YTkxYTVhMTIzMjk1MWZmNWEzNjM3YWU0ZTQ0MzJjMzViOTIwMzk0ZGE3NTlhMTIzYTdiM2I1YmY1OGVmMmUiLCJpYXQiOjE2MDE4Mzc0NjUsIm5iZiI6MTYwMTgzNzQ2NSwiZXhwIjoxNjMzMzczNDY1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.nAxAIFaURrMsXcggNIML0VQ9MaXmeGncHKvrp920nJpXkjySuHYXbU6gIfA31NnVjzwfZMSkDhgJc70RTOJA52-eBdgXjqgFjDtfW9_z49X-seeI8f65KL8yiHx2WwuO1p-9izZdBLCLhDRS7t0lE1Ndd1D85U1NMzJuJjOM2OM8obKMaj2h6Ep4ZNZTb2vLFZNv3tTtJFZoQSOGgcDLGW9K-Kj7dXAwCPZaOeezq4QkTZoboleFx2ERdX0CKWamaVi89ADTYyd7vRcMNhmDmt6FprAqWg8MmTaYN5wVADLS4YRllUn7qX1s4C_Syr2oeXOrUD5fB_4Sy59GJgGJPj71XtPYza7E7cYOC7pFIwhNy9gmRLyNoC38UpeIGwbiJyHaonP7Jh69bISAUK43XlE-ezaWt8pLHhVz_xucoILpuOoPhUy69Kapw8RPqnOY2UfM3t1Nec9y-M-BITdjPAnCKI4qnFgAzOXAUaqabkoEv5v9RSbDX26rUEfoiFO6kLEfJ5ZZKlcfzlvxVgqU1G85TIhvyKjW081MNfHKrmBSLhbmRWKtjIdX3cjLn6pwiuC3U4LCEjeSjsz-OkdmITKqA3IREMEAR9dDoUfLCMXtkoFxH2AiCiTxGxSk4fbnMqdIFa52bNXsu7wssSN2J3n-asZtnD6-m_AGQSc8U-U"
   private postformVisibility: boolean = true
   private feedformVisibility: boolean = false
 
@@ -226,7 +229,7 @@ export default class postsComponent extends Vue {
 
     console.log("validateImage .. ", event.target)
 
-    this.uploadMyAvatar (event.target.files[0])
+    this.uploadMyAvatar (event.target.files)
     // this.uploadMyAvatar (event.target)
 
 
@@ -234,7 +237,7 @@ export default class postsComponent extends Vue {
 
   private getMyAvatar() {
 
-    fetch('api/v1/avatars/1', {
+    fetch('api/v1/avatars/2', {
       method: 'GET',
       headers: {
         'Content-Type': '*',
@@ -287,60 +290,44 @@ export default class postsComponent extends Vue {
 
   private uploadMyAvatar(fl) {
 
-    console.log("WHAT IS ")
-    console.log("WHAT IS ", fl)
-
-    var f = document.getElementById("uploadForm") as HTMLFormElement
-
+    let formData2 = new FormData()
+          formData2.append('avatar', fl[0], fl[0].name)
+    try {
+            let response = axios.post('http://localhost:8000/api/v1/avatars', formData2, {
+              headers: {
+                'Authorization': 'Bearer ' + this.ATOKEN,
+                'Content-Type': 'multipart/form-data;boundary=*'
+              }
+         })
+    } catch(err) {
+      console.log(err)
+    }
+ /*
     var formData = new FormData()
-    formData.append('avatar', fl, fl.name);
-    // formData.append("avatar", fl)
-
-    console.log(" AVATAR eha is f ", f)
-
-    // formData.append("avatar", fl)
-    // formData.append("avatar", null)
-
-    var mydata =  {
-      "data" : {
-          "type": "avatars",
-          "avatar": "test",
-          "attributes": {
-              "media_type": 'image/jpg',
-          }
-        },
-     }
-
-
-    //    var mydata =  { "avatar": fl };
+    formData.append('avatar', fl[0], fl[0].name);
 
     fetch('api/v1/avatars', {
       method: 'POST',
       headers: {
-        // 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW', // boundary=* WebKitFormBoundary3pvkBL1AgVlyftxh
-        // 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary*', // boundary=* WebKitFormBoundary3pvkBL1AgVlyftxh
         'Content-Type': 'multipart/form-data;boundary=*',
-        'Accept': 'application/vnd.api+json',
-        'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1],
+        'Accept': '*',
+         // 'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1],
         'Authorization': 'Bearer ' + this.ATOKEN,
       },
-      body: formData // formData // JSON.stringify(formData)// formData //
+      body: formData
     })
-    .then((response) =>{
+    .then((response) => {
       return response.json()
-    } )
+    })
     .then((data) => {
       if (typeof data.errors !== 'undefined') {
         console.error("Something wrong with posts feed initially request.")
         return;
       }
-
       this.$data.lastResponse = data
       console.log("this.$data.lastResponse => " + this.$data.lastResponse)
     })
-
-
-
+   */
   }
 
   /**
