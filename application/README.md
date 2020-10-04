@@ -130,9 +130,11 @@ This demo includes the following JSON-API resources:
 | tags | App\Tag | Yes |
 | users | App\User | Yes |
 
-<pre>
-More about client - server relations:
+</br>
 
+## More about client - server relations:
+
+<pre>
 +------------------------------------------------------------------------------------------------+
 |  +--------------------------------------------------------------------------+                  |
 |  Single web route: Route::get('/home', 'HomeController@index')|>name('home');                  |
