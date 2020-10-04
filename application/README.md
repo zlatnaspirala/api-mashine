@@ -1,7 +1,7 @@
 
 # Api mashine
 
-Source :
+## Source:
   [cloudcreativity/laravel-json-api](https://github.com/cloudcreativity/laravel-json-api)
   more [JSON API](http://jsonapi.org)
   This is demonstrated using Eloquent models as the domain records that are serialized in the API,
@@ -12,91 +12,47 @@ Source :
 Clone project and navigate terminal to the root folder:
 
 ``` bash
-composer install
-cp .env.example .env
-php artisan passport:install
-php vendor/bin/homestead make
-vagrant up
+  https://github.com/zlatnaspirala/api-mashine
+
+  composer install
+  cp .env.example .env
+  php artisan passport:install
+  php artisan migrate
+  php artisan db:seed
+  // php artisan key:generate
+  // php artisan passport:keys
+  php artisan serve
 ```
 
- - Testing POST GET
+Update:
 
-```js
-
-// test POST
-function RUN() {
-
-  var DATA = {
-    "data": {
-      "type": "posts",
-      "attributes": {
-        "title": "Hello World",
-        "content": "..."
-      },
-      "relationships": {
-        "tags": {
-            "data": [
-                {
-                    "type": "tags",
-                    "id": "1"
-                }
-            ]
-        }
-      }
-    }
-  }
-
-  fetch('/api/v1/posts/1', {
-    method: 'GET', // *GET, POST, PUT, DELETE, etc.
-    //mode: 'cors', // no-cors, *cors, same-origin
-    //cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-    //credentials: 'same-origin', // include, *same-origin, omit
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRF-TOKEN': document.cookie.split("TOKEN=")[1]
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    //redirect: 'follow', // manual, *follow, error
-    //referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-    body: JSON.stringify(DATA) // body data type must match "Content-Type" header
-  })
-  .then((response) =>{
-    return response.json()
-  } )
-  .then((data) => {
-    console.log(data)
-  })
-}
+```php
+  php artisan migrate:fresh --seed
 ```
 
 > Remember you'll need to add an entry for `homestead.app` in your `/etc/hosts` file.
-
 Once it is up and running, go to the following address in your browser to see the JSON endpoints:
-
 ```
 http://homestead.app/api/v1/posts
 ```
 
 To access the web interface:
-
 ```
-http://homestead.app
+http://localhost:8000
 ```
-
-> If you use the Vagrant hosts updater plugin, the hostname may be `demo-laravel-json-api` or similar.
 
 ## Authentication
 
-Any write requests require an authenticated user. We've installed
-[Laravel Passport](https://laravel.com/docs/passport) for API authentication. You will need to use
-[Personal Access Tokens](https://laravel.com/docs/passport#personal-access-tokens) and the Vagrant provisioning
-runs the Passport installation command.
+ - Any write requests require an authenticated user. We've installed
+ - [Laravel Passport](https://laravel.com/docs/passport) for API authentication. You will need to use
+ - [Personal Access Tokens](https://laravel.com/docs/passport#personal-access-tokens) and the Vagrant provisioning
+   runs the Passport installation command.
 
-To create a token, go to the web interface and login (the username and password fields are completed with
-credentials that will sign you in successfully). You'll then see the Passport Person Access Token component
-which you can use to issue tokens.
+ - To create a token, go to the web interface and login (the username and password fields are completed with
+  credentials that will sign you in successfully). You'll then see the Passport Person Access Token component
+  which you can use to issue tokens.
 
-Once you have a token, send a request as follows, replacing the `<api_token>` with your token.
+- Once you have a token, send a request as follows, replacing the `<api_token>` with your token.
 
 ```http
 POST http://homestead.app/api/v1/posts
@@ -131,6 +87,103 @@ This demo includes the following JSON-API resources:
 | tags | App\Tag | Yes |
 | users | App\User | Yes |
 
+## Software architecture
+
+<pre>
+```
+ +---------------------------------------------------------------------------------+
+ |                                                                                 |
+ | +------------------------------------+  +-------------------------------------+ |
+ | |                                    |  |                                     | |
+ | |  +------------------------------+  |  | Even out web app need client key    | |
+ | |  |                              |  |  | access to be created initially. Next| |
+ | |  |  LARAVEL 8 JSON-API Core     |  |  | step is to create  access token  for  |
+ | |  |                              |  |  | every logged user. This will be     | |
+ | |  +------------------------------+  |  | automated in future.                | |
+ | |  +------------------------------+  |  |                                     | |
+ | |  |            GUARD             |  |  | - User must be logged if we want to | |
+ | |  |    lara^el/passport auth     |  |  | create database entries.            | |
+ | |  +------------------------------+  |  | - Personal access token generate    | |
+ | | +--------------+ +---------------+ |  | - Access is ready.                  | |
+ | | |home.blade.php| |      API      | |  |                                     | |
+ | | |     route    | |     route     | |  |                                     | |
+ | | |    web.php   | |    app.php    | |  |                                     | |
+ | | +--------------+ +---------------+ |  |                                     | |
+ | +------------------------------------+  +-------------------------------------+ |
+ |     ^               ^    |   ^   |                                              |
+ |     |            +-------v-------v--+                                           |
+ |     |LOGIN       | Logged user      |                                           |
+ |     |            | request POST     |                                           |
+ |     |            +--^--------^------+                                           |
+ |     |               |    |   |   |                                              |
+ |  +-----------------------v-------v--+   +-------------------------------------+ |
+ |  || Web app based on Vue framework ||   |    Other type of applications       | |
+ |  ||   Class component oriented     ||   | +----------------+ +--------------+ | |
+ |  +----------------------------------+   | | Native android | | native ios   | | |
+ |  |            +-------------------+ |   | | Android Studio | | xcode proj   | | |
+ |  | +--------+ |  vue components   | |   | +----------------+ +--------------+ | |
+ |  | | app.ts | | +--+ +--+    +--+ | |   | +----------------+ +--------------+ | |
+ |  | +--------+ | |  | |  |    |  | | |   | | hybrids multi  | |other - server| | |
+ |  |            | +--+ +--+ ++ +--+ | |   | | platform (web) | |console access| | |
+ |  |            +-------------------+ |   | +----------------+ +--------------+ | |
+ |  +----------------------------------+   +-------------------------------------+ |
+ |                                                                                 |
+ +---------------------------------------------------------------------------------+
+```
+
+More about client - server relations:
+
++------------------------------------------------------------------------------------------------+
+|  +--------------------------------------------------------------------------+                  |
+|  Single web route: Route::get('/home', 'HomeController@index')|>name('home');                  |
+|  +--------------------------------------------------------------------------+                  |
+|                                                                                                |
+|   +---------------------------------------------+      Only resources with                     |
+|   |                                             |      `ContentNegotiator` have option         |
+|   | app.blade.php                               |      to receive different content-type       |
+|   |                                             |                                              |
+|   | +-----------------------------------------+ |        URL               Controller Action   |
+|   | | home.blade.php                          | |                                              |
+|   | |                                         | |      `GET /posts`             | `index` |    |
+|   | +-----------------------------------------+ |      `POST /posts`            | `create` |   |
+|   +---------------------------------------------+      `GET /posts/{rec}`       | `read` |     |
+|                                                        `PATCH /posts/{record}`  | `update` |   |
+|                                                        `DELETE /posts/{record}` | `delete` |   |
+|     +-----------------------------------------------------------+                              |
+|     |ONLY Request's with Content-Type: application/vnd.api+json |                              |
+|     |will be taken into consideration                           |                              |
+|     +-----------------------------------------------------------+                              |
+|                                                                                                |
+|                                                                                                |
++--------------+-------+--------+--------+-------------------------------------------------------+
+               ^       ^        ^        ^
+               |  GET  | POST   | PATCH  |  DELETE
+               |       |        |        |
+               |       |        |        |
++------------------------------------------------------------------------------------------------+
+|  +-------------------------------------------------------------------------------------------+ |
+|  | Client verification                            For create and update user must be logged. | |
+|  |                                                                                           | |
+|  +-------------------------------------------------------------------------------------------+ |
+|                                                                                                |
+|                     +----------------------------------------------+                           |
+|                     |   Every call must contain X-CSRF-TOKEN       |                           |
+|                     |                                              |                           |
+|                     |   PERSONAL KEY  For POST and PATCH , DELETE  |                           |
+|                     |                                              |                           |
+|                     +----------------------------------------------+                           |
+|                                                                                                |
+|                                                                                                |
+|                      +-------------------------------------------+                             |
+|                      |   WEB APPLICATION PART. Vue/typescript    |                             |
+|                      |   Using class component decoration        |                             |
+|                      +-------------------------------------------+                             |
+|                                                                                                |
+|                                                                                                |
++------------------------------------------------------------------------------------------------+
+
+</pre>
+
 ## Tests
 
 We're big on testing, and the `cloudcreativity/laravel-json-api` package comes with test helpers to make integration
@@ -141,4 +194,10 @@ To run the tests:
 
 ```bash
 vendor/bin/phpunit
+```
+
+Foe windows users:
+
+```bash
+"vendor/bin/phpunit"
 ```

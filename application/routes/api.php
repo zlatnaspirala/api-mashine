@@ -14,19 +14,12 @@ use CloudCreativity\LaravelJsonApi\Routing\RouteRegistrar as Api;
 | s App\Http\Controllers\AvatarsController
 */
 
-
-JsonApi::register('v1')->defaultContentNegotiator('json')->routes(function ($api, $router) {
-
-
-
-
-});
-
 JsonApi::register('v1', ['namespace' => 'Api'], function (Api $api) {
 
-       // $api->resource('avatars')->contentNegotiator('custom');
-
-      $api->resource('avatars', [
+    /**
+     * @description Specific Content negotation
+     */
+    $api->resource('avatars', [
         'middleware' => 'json-api.auth:default',
         'controller' => true
     ]);
@@ -51,4 +44,5 @@ JsonApi::register('v1', ['namespace' => 'Api'], function (Api $api) {
     ]);
 
     $api->resource('sites');
+
 });
