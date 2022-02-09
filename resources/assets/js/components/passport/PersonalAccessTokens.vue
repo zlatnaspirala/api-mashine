@@ -189,6 +189,7 @@
             getTokens() {
                 axios.get('/oauth/personal-access-tokens')
                         .then(response => {
+                            console.log(">>/oauth/personal-access-tokens'>>>", response)
                             this.tokens = response.data;
                         });
             },
@@ -217,7 +218,7 @@
                             this.form.name = '';
                             this.form.scopes = [];
                             this.form.errors = [];
-
+                            console.log(">>>>>", response)
                             this.tokens.push(response.data.token);
 
                             this.showAccessToken(response.data.accessToken);

@@ -56,9 +56,15 @@ Navigate to the root folder application/
   php artisan migrate
   php artisan db:seed
   php artisan key:generate
-  php artisan passport:keys
+  php artisan passport:keys --force
   php artisan serve
+
+  php artisan passport:client --personal
+  
 ```
+
+Debugger bar
+`composer require barryvdh/laravel-debugbar:3.3 --dev`
 
 ### Update :
 
@@ -105,11 +111,10 @@ Copyright 2016, zlatnaspirala@gmail.com
 All rights reserved.
 
 <b>Disclaimer of warranty</b>
-    'Visual js' is provided "as-is" and without warranty of any kind, express, implied or otherwise,
+    'API Mashine' is provided "as-is" and without warranty of any kind, express, implied or otherwise,
     including without limitation, any warranty of merchantability or fitness for a particular purpose.
     In no event shall the author of this software be held liable for data loss,
     damages, loss of profits or any other kind of loss while using or misusing this software.
-
 
 
 ### External LICENCE:

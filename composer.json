@@ -11,6 +11,7 @@
     "require": {
         "php": "^7.1",
         "ext-json": "*",
+        "barryvdh/laravel-debugbar": "3.3",
         "cloudcreativity/laravel-json-api": "^1.5",
         "doctrine/dbal": "^2.6",
         "fideloper/proxy": "^4.0",
