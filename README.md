@@ -43,6 +43,11 @@
  +---------------------------------------------------------------------------------+
 ```
 
+### Instal on vercel
+
+No need for composer install
+
+
 ### Install and run:
 
 Create with mysql database with name apimashine.
