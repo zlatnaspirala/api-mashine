@@ -1,6 +1,4 @@
 /node_modules
-
-
 /storage/*.key
 /vendor
 /.idea
@@ -13,3 +11,9 @@ aliases
 Vagrantfile
 .vercel
 *.DISABLED
+
+/DISABLEDpublic/hot
+/DISABLEDpublic/storage
+/DISABLEDpublic/css
+/DISABLEDpublic/js
+/DISABLEDpublic/mix-manifest.json

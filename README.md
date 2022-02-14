@@ -1,7 +1,12 @@
-# api-mashine #
-### version 1.00 ###
+# api-mashine
+### version 1.00
+### Published dev at https://api-mashine.herokuapp.com
 
-## General Shema ##
+Make account: https://api-mashine.herokuapp.com/register
+It is possible with full free plan. Must be verified.
+
+
+## General Shema
 ```
  +---------------------------------------------------------------------------------+
  |                                                                                 |
@@ -43,9 +48,10 @@
  +---------------------------------------------------------------------------------+
 ```
 
-### Instal on vercel
+### Instal on heroku
 
-No need for composer install
+Just deploy.
+Storage and front links for avatars (images) not fixed.
 
 
 ### Install and run:
@@ -56,16 +62,14 @@ Navigate to the root folder application/
 
 ```php
   composer install
-  cp .env.example .env
+  // cp .env.example .env
   php artisan passport:install
   php artisan migrate
   php artisan db:seed
   php artisan key:generate
   php artisan passport:keys --force
-  php artisan serve
-
   php artisan passport:client --personal
-  
+  php artisan serve
 ```
 
 Debugger bar

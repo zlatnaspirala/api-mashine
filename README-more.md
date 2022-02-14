@@ -15,12 +15,13 @@ Clone project and navigate terminal to the root folder:
   https://github.com/zlatnaspirala/api-mashine
 
   composer install
-  cp .env.example .env
+  // cp .env.example .env
   php artisan passport:install
   php artisan migrate
   php artisan db:seed
-  // php artisan key:generate
-  // php artisan passport:keys
+  php artisan key:generate
+  php artisan passport:keys --force
+  php artisan passport:client --personal
   php artisan serve
 ```
 
