@@ -71,6 +71,11 @@ Navigate to the root folder application/
 Debugger bar
 `composer require barryvdh/laravel-debugbar:3.3 --dev`
 
+## Heroku 
+
+heroku access -a=APPNAME
+
+
 ### Update :
 
 For Server part:
